@@ -13,9 +13,13 @@ import play.Player;
 
 class PlayState extends FlxState {
 
+    private static inline var TILE_SIZE = 16;
+
     var map = new FlxTilemap();
     var balls = new FlxTypedGroup<Ball>();
+    var projectiles = new FlxTypedGroup<Projectile>();
     var player: Player;
+
 
     override public function create(): Void {
         super.create();
@@ -32,17 +36,43 @@ class PlayState extends FlxState {
         balls.add(new Ball(100, 30, BallSize.Medium, HorizontalDirection.Left, FlxColor.GREEN));
         balls.add(new Ball(100, 30, BallSize.Small, HorizontalDirection.Right, FlxColor.YELLOW));
 
-        player = new Player(640 / 2 - 8, 400 - 32);
+        player = new Player(
+        (FlxG.width - Player.SIZE) / 2,
+        FlxG.height - Player.SIZE - TILE_SIZE
+        );
 
         add(bg);
-        add(map);
-        add(balls);
+        add(projectiles);
         add(player);
+        add(balls);
+        add(map);
     }
 
     override public function update(elapsed: Float): Void {
         FlxG.collide(balls, map);
         FlxG.collide(player, map);
+
+        movePlayer();
+        shoot();
+
         super.update(elapsed);
+    }
+
+
+    private inline function movePlayer(): Void {
+        if (FlxG.keys.pressed.LEFT) player.moveLeft();
+        if (FlxG.keys.justReleased.LEFT) player.stopMoving();
+        if (FlxG.keys.pressed.RIGHT) player.moveRight();
+        if (FlxG.keys.justReleased.RIGHT) player.stopMoving();
+    }
+
+    private inline function shoot(): Void {
+
+        if (FlxG.keys.justPressed.Z) {
+            projectiles.add(new Projectile(
+            player.x + Player.SIZE / 2 - Projectile.WIDTH / 2,
+            player.y
+            ));
+        }
     }
 }
