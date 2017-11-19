@@ -67,12 +67,15 @@ class PlayState extends FlxState {
     }
 
     private inline function shoot(): Void {
+        if (FlxG.keys.justPressed.Z && canShoot()) {
+            var projectileX = player.x + Player.SIZE / 2 - Projectile.WIDTH / 2;
+            var projectileY = player.y;
 
-        if (FlxG.keys.justPressed.Z) {
-            projectiles.add(new Projectile(
-            player.x + Player.SIZE / 2 - Projectile.WIDTH / 2,
-            player.y
-            ));
+            projectiles.add(new Projectile(projectileX, projectileY));
         }
+    }
+
+    private inline function canShoot(): Bool {
+        return projectiles.countLiving() < 2;
     }
 }
