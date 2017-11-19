@@ -9,6 +9,7 @@ class Ball extends FlxShapeCircle {
     private static inline var GRAVITY = 200;
     private static inline var FALLING_SPEED = 300;
 
+    private var size: BallSize;
     private var pixelSize: Float;
     private var horizontalVelocity: Float;
     private var weight: Float;
@@ -22,7 +23,7 @@ class Ball extends FlxShapeCircle {
 
         acceleration.y = weight;
         maxVelocity.set(0, FALLING_SPEED);
-        velocity.y = GRAVITY;
+        velocity.y = -GRAVITY / 3;
         velocity.x = horizontalVelocity;
 
         if (direction == HorizontalDirection.Left) {
@@ -46,8 +47,32 @@ class Ball extends FlxShapeCircle {
         super.update(elapsed);
     }
 
+    public function split(): Array<Ball> {
+        var newBalls: Array<Ball>;
+
+        switch(size) {
+            case BallSize.Big:
+                newBalls = [
+                    new Ball(x - 10, y, BallSize.Medium, HorizontalDirection.Left, FlxColor.RED),
+                    new Ball(x + 10, y, BallSize.Medium, HorizontalDirection.Right, FlxColor.RED)
+                ];
+            case BallSize.Medium:
+                newBalls = [
+                    new Ball(x - 10, y, BallSize.Small, HorizontalDirection.Left, FlxColor.RED),
+                    new Ball(x + 10, y, BallSize.Small, HorizontalDirection.Right, FlxColor.RED)
+                ];
+            case BallSize.Small:
+                newBalls = [];
+        }
+
+        kill();
+        return newBalls;
+    }
+
 
     private inline function loadSize(size: BallSize) {
+        this.size = size;
+
         switch(size) {
             case BallSize.Big:
                 pixelSize = 64;

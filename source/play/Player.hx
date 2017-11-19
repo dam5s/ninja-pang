@@ -5,7 +5,7 @@ import flixel.util.FlxColor;
 
 class Player extends FlxSprite {
 
-    public static inline var SIZE = 16;
+    public static inline var SIZE = 32;
     private static inline var GRAVITY = 200;
     private static inline var HORIZONTAL_VELOCITY = 120;
 

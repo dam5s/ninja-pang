@@ -36,10 +36,9 @@ class PlayState extends FlxState {
         balls.add(new Ball(100, 30, BallSize.Medium, HorizontalDirection.Left, FlxColor.GREEN));
         balls.add(new Ball(100, 30, BallSize.Small, HorizontalDirection.Right, FlxColor.YELLOW));
 
-        player = new Player(
-        (FlxG.width - Player.SIZE) / 2,
-        FlxG.height - Player.SIZE - TILE_SIZE
-        );
+        var playerX = (FlxG.width - Player.SIZE) / 2;
+        var playerY = FlxG.height - Player.SIZE - TILE_SIZE;
+        player = new Player(playerX, playerY);
 
         add(bg);
         add(projectiles);
@@ -51,6 +50,7 @@ class PlayState extends FlxState {
     override public function update(elapsed: Float): Void {
         FlxG.collide(balls, map);
         FlxG.collide(player, map);
+        FlxG.collide(projectiles, balls, collideProjectileAndBall);
 
         movePlayer();
         shoot();
@@ -58,6 +58,14 @@ class PlayState extends FlxState {
         super.update(elapsed);
     }
 
+
+    private function collideProjectileAndBall(projectile: Projectile, ball: Ball): Void {
+        projectile.kill();
+
+        for (newBall in ball.split()) {
+            balls.add(newBall);
+        }
+    }
 
     private inline function movePlayer(): Void {
         if (FlxG.keys.pressed.LEFT) player.moveLeft();
