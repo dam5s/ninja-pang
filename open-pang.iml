@@ -49,17 +49,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="haxelib|source">
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/source" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/source" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="haxelib|/home/dam5s/dev/haxe/lib/openfl/3,6,1/extern">
         <CLASSES>
           <root url="file://$USER_HOME$/dev/haxe/lib/openfl/3,6,1/extern" />
@@ -72,5 +61,16 @@
     </orderEntry>
     <orderEntry type="library" name="Libs" level="application" />
     <orderEntry type="library" name="Haxe" level="application" />
+    <orderEntry type="module-library">
+      <library name="haxelib|/home/dam5s/dev/haxe/lib/flixel-addons/2,5,0">
+        <CLASSES>
+          <root url="file://$USER_HOME$/dev/haxe/lib/flixel-addons/2,5,0" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$USER_HOME$/dev/haxe/lib/flixel-addons/2,5,0" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -4,18 +4,6 @@ import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.FlxObject;
 import flixel.util.FlxColor;
 
-
-enum BallSize {
-    Big;
-    Medium;
-    Small;
-}
-
-enum BallDirection {
-    Left;
-    Right;
-}
-
 class Ball extends FlxShapeCircle {
 
     private static inline var GRAVITY = 200;
@@ -26,7 +14,7 @@ class Ball extends FlxShapeCircle {
     private var weight: Float;
 
 
-    public function new(x: Float, y: Float, size: BallSize, direction: BallDirection, color: FlxColor) {
+    public function new(x: Float, y: Float, size: BallSize, direction: HorizontalDirection, color: FlxColor) {
         loadSize(size);
 
         super(x, y, pixelSize / 2.0, { color: FlxColor.TRANSPARENT }, color);
@@ -37,7 +25,7 @@ class Ball extends FlxShapeCircle {
         velocity.y = GRAVITY;
         velocity.x = horizontalVelocity;
 
-        if (direction == BallDirection.Left) {
+        if (direction == HorizontalDirection.Left) {
             velocity.x = -horizontalVelocity;
         }
     }
