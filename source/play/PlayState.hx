@@ -6,6 +6,7 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.tile.FlxTilemap;
+import gameover.GameOverState;
 import play.BallSize;
 import play.HorizontalDirection;
 import play.Player;
@@ -94,6 +95,10 @@ class PlayState extends FlxState {
     private function hitPlayer(player: Player, ball: Ball) {
         if (player.hit()) {
             scoreBoard.lives -= 1;
+
+            if (scoreBoard.lives < 0) {
+                FlxG.switchState(new GameOverState());
+            }
         }
     }
 
