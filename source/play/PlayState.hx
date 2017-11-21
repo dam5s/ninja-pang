@@ -6,7 +6,6 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.tile.FlxTilemap;
-import flixel.util.FlxColor;
 import play.BallSize;
 import play.HorizontalDirection;
 import play.Player;
@@ -32,9 +31,7 @@ class PlayState extends FlxState {
         bg.loadMapFromArray(bgLayer.tileArray, tiledMap.width, tiledMap.height, AssetPaths.tiles__png, 16, 16, 1);
         map.loadMapFromArray(mainLayer.tileArray, tiledMap.width, tiledMap.height, AssetPaths.tiles__png, 16, 16, 1);
 
-        balls.add(new Ball(30, 30, BallSize.Big, HorizontalDirection.Right, FlxColor.RED));
-        balls.add(new Ball(100, 30, BallSize.Medium, HorizontalDirection.Left, FlxColor.GREEN));
-        balls.add(new Ball(100, 30, BallSize.Small, HorizontalDirection.Right, FlxColor.YELLOW));
+        spawnBall(0.0, true);
 
         var playerX = (FlxG.width - Player.SIZE) / 2;
         var playerY = FlxG.height - Player.SIZE - TILE_SIZE;
@@ -52,12 +49,40 @@ class PlayState extends FlxState {
         FlxG.collide(player, map);
         FlxG.collide(projectiles, balls, collideProjectileAndBall);
 
+        spawnBall(elapsed);
         movePlayer();
         shoot();
 
         super.update(elapsed);
     }
 
+
+    private var timeSinceLastSpawn: Float = 0;
+    private var spawnFrequency: Float = 5;
+
+    private function spawnBall(elapsed: Float, force: Bool = false) {
+        timeSinceLastSpawn += elapsed;
+
+        if (timeSinceLastSpawn > spawnFrequency || force) {
+            var x = randomX();
+            var direction = randomDirection();
+
+            balls.add(new Ball(x, 30, BallSize.Big, direction));
+            timeSinceLastSpawn = 0;
+        }
+    }
+
+    private inline function randomX(): Int {
+        return 30 + Math.floor(Math.random() * FlxG.width - 60);
+    }
+
+    private inline function randomDirection(): HorizontalDirection {
+        if (Math.random() > .5) {
+            return HorizontalDirection.Right;
+        }
+
+        return HorizontalDirection.Left;
+    }
 
     private function collideProjectileAndBall(projectile: Projectile, ball: Ball): Void {
         projectile.kill();

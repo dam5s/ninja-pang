@@ -15,10 +15,10 @@ class Ball extends FlxShapeCircle {
     private var weight: Float;
 
 
-    public function new(x: Float, y: Float, size: BallSize, direction: HorizontalDirection, color: FlxColor) {
+    public function new(x: Float, y: Float, size: BallSize, direction: HorizontalDirection) {
         loadSize(size);
 
-        super(x, y, pixelSize / 2.0, { color: FlxColor.TRANSPARENT }, color);
+        super(x, y, pixelSize / 2.0, { color: FlxColor.TRANSPARENT }, FlxColor.RED);
         setSize(pixelSize, pixelSize);
 
         acceleration.y = weight;
@@ -53,13 +53,13 @@ class Ball extends FlxShapeCircle {
         switch(size) {
             case BallSize.Big:
                 newBalls = [
-                    new Ball(x - 10, y, BallSize.Medium, HorizontalDirection.Left, FlxColor.RED),
-                    new Ball(x + 10, y, BallSize.Medium, HorizontalDirection.Right, FlxColor.RED)
+                    new Ball(x - 10, y, BallSize.Medium, HorizontalDirection.Left),
+                    new Ball(x + 10, y, BallSize.Medium, HorizontalDirection.Right)
                 ];
             case BallSize.Medium:
                 newBalls = [
-                    new Ball(x - 10, y, BallSize.Small, HorizontalDirection.Left, FlxColor.RED),
-                    new Ball(x + 10, y, BallSize.Small, HorizontalDirection.Right, FlxColor.RED)
+                    new Ball(x - 10, y, BallSize.Small, HorizontalDirection.Left),
+                    new Ball(x + 10, y, BallSize.Small, HorizontalDirection.Right)
                 ];
             case BallSize.Small:
                 newBalls = [];
