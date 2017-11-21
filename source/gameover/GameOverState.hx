@@ -8,13 +8,27 @@ import menu.MainMenuState;
 
 class GameOverState extends FlxState {
 
-    override public function create(): Void {
-        var text = new FlxText(0, FlxG.height / 2 - 32, FlxG.width);
-        text.alignment = FlxTextAlign.CENTER;
-        text.size = 64;
-        text.text = "GAME OVER";
+    private var score: Int;
 
-        add(text);
+
+    public function new(score: Int) {
+        super();
+        this.score = score;
+    }
+
+    override public function create(): Void {
+        var gameOver = new FlxText(0, FlxG.height / 2 - 64 - 32, FlxG.width);
+        gameOver.alignment = FlxTextAlign.CENTER;
+        gameOver.size = 64;
+        gameOver.text = "GAME OVER";
+
+        var scoreText = new FlxText(0, FlxG.height / 2 + 32, FlxG.width);
+        scoreText.alignment = FlxTextAlign.CENTER;
+        scoreText.size = 32;
+        scoreText.text = 'YOUR SCORE: ${lpad(score, 6)}';
+
+        add(gameOver);
+        add(scoreText);
     }
 
     var timeSpent = 0.0;
@@ -25,5 +39,10 @@ class GameOverState extends FlxState {
         if (timeSpent > 5) {
             FlxG.switchState(new MainMenuState());
         }
+    }
+
+
+    private inline function lpad(number: Int, padding: Int): String {
+        return StringTools.lpad(Std.string(number), "0", padding);
     }
 }

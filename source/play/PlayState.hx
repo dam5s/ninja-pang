@@ -104,7 +104,7 @@ class PlayState extends FlxState {
 
             if (scoreBoard.lives < 0) {
                 saveService.saveHighScore(scoreBoard.score);
-                FlxG.switchState(new GameOverState());
+                FlxG.switchState(new GameOverState(scoreBoard.score));
             }
         }
     }
