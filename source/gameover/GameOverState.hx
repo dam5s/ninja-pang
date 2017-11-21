@@ -1,9 +1,10 @@
 package gameover;
 
-
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
+import menu.MainMenuState;
+
 
 class GameOverState extends FlxState {
 
@@ -14,5 +15,15 @@ class GameOverState extends FlxState {
         text.text = "GAME OVER";
 
         add(text);
+    }
+
+    var timeSpent = 0.0;
+
+    override public function update(elapsed: Float): Void {
+        timeSpent += elapsed;
+
+        if (timeSpent > 5) {
+            FlxG.switchState(new MainMenuState());
+        }
     }
 }
