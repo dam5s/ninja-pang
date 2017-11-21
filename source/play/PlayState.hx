@@ -20,6 +20,8 @@ class PlayState extends FlxState {
     var balls = new FlxTypedGroup<Ball>();
     var projectiles = new FlxTypedGroup<Projectile>();
     var player: Player;
+    var scoreBoard: ScoreBoard;
+    var hud: HUD;
 
 
     override public function create(): Void {
@@ -44,12 +46,17 @@ class PlayState extends FlxState {
         add(player);
         add(balls);
         add(map);
+
+        scoreBoard = new ScoreBoard();
+        hud = new HUD(scoreBoard);
+        add(hud);
     }
 
     override public function update(elapsed: Float): Void {
         FlxG.collide(balls, map);
         FlxG.collide(player, map);
         FlxG.collide(projectiles, balls, collideProjectileAndBall);
+        FlxG.overlap(player, balls, hitPlayer);
 
         spawnBall(elapsed);
         movePlayer();
@@ -74,26 +81,22 @@ class PlayState extends FlxState {
         }
     }
 
-    private inline function randomX(): Int {
-        return 30 + Math.floor(Math.random() * FlxG.width - 60);
-    }
-
-    private inline function randomDirection(): HorizontalDirection {
-        if (Math.random() > .5) {
-            return HorizontalDirection.Right;
-        }
-
-        return HorizontalDirection.Left;
-    }
-
     private function collideProjectileAndBall(projectile: Projectile, ball: Ball): Void {
         projectile.kill();
+        scoreBoard.score += ball.score;
 
         for (newBall in ball.split()) {
             newBall.x = xWithinBoundaries(newBall.x);
             balls.add(newBall);
         }
     }
+
+    private function hitPlayer(player: Player, ball: Ball) {
+        if (player.hit()) {
+            scoreBoard.lives -= 1;
+        }
+    }
+
 
     private inline function movePlayer(): Void {
         if (FlxG.keys.pressed.LEFT) player.moveLeft();
@@ -113,6 +116,18 @@ class PlayState extends FlxState {
 
     private inline function canShoot(): Bool {
         return projectiles.countLiving() < 2;
+    }
+
+    private inline function randomX(): Int {
+        return 30 + Math.floor(Math.random() * FlxG.width - 60);
+    }
+
+    private inline function randomDirection(): HorizontalDirection {
+        if (Math.random() > .5) {
+            return HorizontalDirection.Right;
+        }
+
+        return HorizontalDirection.Left;
     }
 
     private inline function xWithinBoundaries(x: Float): Float {

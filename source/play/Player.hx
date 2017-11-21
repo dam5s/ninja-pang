@@ -1,7 +1,7 @@
 package play;
 
 import flixel.FlxSprite;
-import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 class Player extends FlxSprite {
 
@@ -9,11 +9,18 @@ class Player extends FlxSprite {
     private static inline var GRAVITY = 200;
     private static inline var HORIZONTAL_VELOCITY = 120;
 
+    private var immune = false;
+
 
     public function new(x: Float, y: Float) {
         super(x, y);
+        loadGraphic(AssetPaths.player_sheet__png, true, 32, 32);
+
+        animation.add("normal", [0]);
+        animation.add("hit", [0, 1], 12);
+        animation.play("normal");
+
         setSize(SIZE, SIZE);
-        makeGraphic(SIZE, SIZE, FlxColor.WHITE);
 
         velocity.y = GRAVITY;
         velocity.x = 0;
@@ -29,5 +36,21 @@ class Player extends FlxSprite {
 
     public function stopMoving(): Void {
         velocity.x = 0;
+    }
+
+    public function hit(): Bool {
+        if (immune) {
+            return false;
+        }
+
+        immune = true;
+        animation.play("hit");
+
+        new FlxTimer().start(2.0, function(_) {
+            immune = false;
+            animation.play("normal");
+        });
+
+        return true;
     }
 }

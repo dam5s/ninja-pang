@@ -14,6 +14,8 @@ class Ball extends FlxShapeCircle {
     private var horizontalVelocity: Float;
     private var weight: Float;
 
+    public var score(default, null): Int;
+
 
     public function new(x: Float, y: Float, size: BallSize, direction: HorizontalDirection) {
         loadSize(size);
@@ -78,14 +80,17 @@ class Ball extends FlxShapeCircle {
                 pixelSize = 64;
                 weight = 80;
                 horizontalVelocity = 60;
+                score = 10;
             case BallSize.Medium:
                 pixelSize = 32;
                 weight = 100;
                 horizontalVelocity = 50;
+                score = 40;
             case BallSize.Small:
                 pixelSize = 16;
                 weight = 140;
                 horizontalVelocity = 40;
+                score = 80;
         }
     }
 }
