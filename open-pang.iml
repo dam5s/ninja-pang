@@ -72,5 +72,16 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library name="haxelib|source">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/source" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/source" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

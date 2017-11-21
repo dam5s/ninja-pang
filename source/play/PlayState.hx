@@ -1,5 +1,6 @@
 package play;
 
+import save.SaveService;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.FlxG;
@@ -17,13 +18,18 @@ class PlayState extends FlxState {
     private static inline var BALL_MAX_X = 640 - 16;
     private static inline var BALL_MIN_X = 16;
 
-    var map = new FlxTilemap();
-    var balls = new FlxTypedGroup<Ball>();
-    var projectiles = new FlxTypedGroup<Projectile>();
-    var player: Player;
-    var scoreBoard: ScoreBoard;
-    var hud: HUD;
+    private var saveService: SaveService;
+    private var map = new FlxTilemap();
+    private var balls = new FlxTypedGroup<Ball>();
+    private var projectiles = new FlxTypedGroup<Projectile>();
+    private var player: Player;
+    private var scoreBoard: ScoreBoard;
+    private var hud: HUD;
 
+    public function new(saveService: SaveService) {
+        super();
+        this.saveService = saveService;
+    }
 
     override public function create(): Void {
         super.create();
@@ -97,6 +103,7 @@ class PlayState extends FlxState {
             scoreBoard.lives -= 1;
 
             if (scoreBoard.lives < 0) {
+                saveService.saveHighScore(scoreBoard.score);
                 FlxG.switchState(new GameOverState());
             }
         }
