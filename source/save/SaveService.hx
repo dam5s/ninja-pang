@@ -11,14 +11,23 @@ class SaveService {
 
     public function new() {}
 
-    public function saveHighScore(score: Int) {
+    public function saveHighScore(score: Int): Bool {
         if (save.bind(GLOBAL_SAVE_DATA)) {
             if (save.data.highScore == null || save.data.highScore < score) {
                 save.data.highScore = score;
+                save.flush();
+                return true;
             }
         }
 
-        save.flush();
+        return false;
+    }
+
+    public function resetHighScore() {
+        if (save.bind(GLOBAL_SAVE_DATA)) {
+            save.data.highScore = 0;
+            save.flush();
+        }
     }
 
     public function loadHighScore(): Int {

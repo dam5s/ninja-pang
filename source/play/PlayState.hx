@@ -103,8 +103,8 @@ class PlayState extends FlxState {
             scoreBoard.lives -= 1;
 
             if (scoreBoard.lives < 0) {
-                saveService.saveHighScore(scoreBoard.score);
-                FlxG.switchState(new GameOverState(scoreBoard.score));
+                var isHighScore = saveService.saveHighScore(scoreBoard.score);
+                FlxG.switchState(new GameOverState(scoreBoard.score, isHighScore));
             }
         }
     }
@@ -131,7 +131,7 @@ class PlayState extends FlxState {
     }
 
     private inline function randomX(): Int {
-        return 30 + Math.floor(Math.random() * FlxG.width - 60);
+        return 128 + Math.floor(Math.random() * FlxG.width - 256);
     }
 
     private inline function randomDirection(): HorizontalDirection {

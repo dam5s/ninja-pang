@@ -47,6 +47,7 @@ class MainMenuState extends FlxState {
         switch (items[selectedItem]) {
             case "START": FlxG.switchState(new PlayState(saveService));
             case "HIGHSCORE": openSubState(new HighScoreSubState(saveService));
+            case "RESET": saveService.resetHighScore();
             case "EXIT": openfl.Lib.close();
         }
     }

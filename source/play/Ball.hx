@@ -78,18 +78,18 @@ class Ball extends FlxShapeCircle {
         switch(size) {
             case BallSize.Big:
                 pixelSize = 64;
-                weight = 80;
-                horizontalVelocity = 60;
+                weight = 100;
+                horizontalVelocity = 30;
                 score = 10;
             case BallSize.Medium:
                 pixelSize = 32;
-                weight = 100;
-                horizontalVelocity = 50;
+                weight = 180;
+                horizontalVelocity = 40;
                 score = 40;
             case BallSize.Small:
                 pixelSize = 16;
-                weight = 140;
-                horizontalVelocity = 40;
+                weight = 300;
+                horizontalVelocity = 50;
                 score = 80;
         }
     }
