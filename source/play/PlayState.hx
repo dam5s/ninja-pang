@@ -13,6 +13,8 @@ import play.Player;
 class PlayState extends FlxState {
 
     private static inline var TILE_SIZE = 16;
+    private static inline var BALL_MAX_X = 640 - 16;
+    private static inline var BALL_MIN_X = 16;
 
     var map = new FlxTilemap();
     var balls = new FlxTypedGroup<Ball>();
@@ -88,6 +90,7 @@ class PlayState extends FlxState {
         projectile.kill();
 
         for (newBall in ball.split()) {
+            newBall.x = xWithinBoundaries(newBall.x);
             balls.add(newBall);
         }
     }
@@ -110,5 +113,11 @@ class PlayState extends FlxState {
 
     private inline function canShoot(): Bool {
         return projectiles.countLiving() < 2;
+    }
+
+    private inline function xWithinBoundaries(x: Float): Float {
+        if (x < BALL_MIN_X) return BALL_MIN_X;
+        if (x > BALL_MAX_X) return BALL_MAX_X;
+        return x;
     }
 }
