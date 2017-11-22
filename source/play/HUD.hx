@@ -1,5 +1,7 @@
 package play;
 
+using ui.FlxTextExtender;
+
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
@@ -18,9 +20,13 @@ class HUD extends FlxSpriteGroup {
 
         this.scoreBoard = scoreBoard;
 
-        livesText = new FlxText(PADDING * 2, PADDING, FlxG.width - PADDING * 4);
+        livesText = new FlxText(PADDING * 2, PADDING, FlxG.width - PADDING * 4).defaultStyle();
         livesText.alignment = FlxTextAlign.RIGHT;
-        scoreText = new FlxText(PADDING * 2, PADDING);
+        scoreText = new FlxText(PADDING * 2, PADDING).defaultStyle();
+        scoreText.alignment = FlxTextAlign.LEFT;
+
+        styleText(livesText);
+        styleText(scoreText);
 
         add(livesText);
         add(scoreText);
@@ -33,6 +39,12 @@ class HUD extends FlxSpriteGroup {
         super.update(elapsed);
     }
 
+
+    private static function styleText(flxText: FlxText) {
+        flxText.borderStyle = FlxTextBorderStyle.SHADOW;
+        flxText.borderColor = 0x99000000;
+        flxText.size = 12;
+    }
 
     private inline function lpad(number: Int, padding: Int): String {
         return StringTools.lpad(Std.string(number), "0", padding);

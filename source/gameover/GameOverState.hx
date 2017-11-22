@@ -1,6 +1,7 @@
 package gameover;
 
-import flixel.util.FlxColor;
+using ui.FlxTextExtender;
+
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -20,16 +21,12 @@ class GameOverState extends FlxState {
     }
 
     override public function create(): Void {
-        var gameOver = new FlxText(0, FlxG.height / 2 - 64 - 32, FlxG.width);
-        gameOver.alignment = FlxTextAlign.CENTER;
+        var gameOver = new FlxText(0, FlxG.height / 2 - 64 - 32, FlxG.width).defaultStyle();
         gameOver.size = 64;
         gameOver.text = "GAME OVER";
-        gameOver.borderSize = 1;
         gameOver.borderStyle = FlxTextBorderStyle.OUTLINE;
-        gameOver.borderColor = FlxColor.PURPLE;
 
-        var scoreText = new FlxText(0, FlxG.height / 2 + 32, FlxG.width);
-        scoreText.alignment = FlxTextAlign.CENTER;
+        var scoreText = new FlxText(0, FlxG.height / 2 + 32, FlxG.width).defaultStyle();
         scoreText.size = 32;
 
         if (isHighScore) {
