@@ -1,13 +1,14 @@
 package play;
 
 import flixel.addons.display.shapes.FlxShapeCircle;
+import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.util.FlxColor;
 
 class Ball extends FlxShapeCircle {
 
-    private static inline var GRAVITY = 200;
-    private static inline var FALLING_SPEED = 300;
+    private static inline var GRAVITY = 500;
+    private static inline var FALLING_SPEED = 600;
 
     private var size: BallSize;
     private var pixelSize: Float;
@@ -25,7 +26,7 @@ class Ball extends FlxShapeCircle {
 
         acceleration.y = weight;
         maxVelocity.set(0, FALLING_SPEED);
-        velocity.y = -GRAVITY / 3;
+        velocity.y = -GRAVITY / 4;
         velocity.x = horizontalVelocity;
 
         if (direction == HorizontalDirection.Left) {
@@ -38,11 +39,11 @@ class Ball extends FlxShapeCircle {
             velocity.y = -GRAVITY;
         }
 
-        if (justTouched(FlxObject.LEFT)) {
+        if (x <= 0) {
             velocity.x = horizontalVelocity;
         }
 
-        if (justTouched(FlxObject.RIGHT)) {
+        if (x + width >= FlxG.width) {
             velocity.x = -horizontalVelocity;
         }
 
@@ -77,18 +78,18 @@ class Ball extends FlxShapeCircle {
 
         switch(size) {
             case BallSize.Big:
-                pixelSize = 64;
-                weight = 100;
+                pixelSize = 128;
+                weight = GRAVITY - 80;
                 horizontalVelocity = 30;
                 score = 10;
             case BallSize.Medium:
-                pixelSize = 32;
-                weight = 180;
+                pixelSize = 64;
+                weight = GRAVITY - 40;
                 horizontalVelocity = 40;
                 score = 40;
             case BallSize.Small:
-                pixelSize = 16;
-                weight = 300;
+                pixelSize = 32;
+                weight = GRAVITY;
                 horizontalVelocity = 50;
                 score = 80;
         }

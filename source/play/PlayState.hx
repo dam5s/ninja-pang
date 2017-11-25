@@ -1,16 +1,15 @@
 package play;
 
-import save.SaveService;
-import flixel.addons.editors.tiled.TiledMap;
-import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.tile.FlxTilemap;
+import flixel.util.FlxColor;
 import gameover.GameOverState;
 import play.BallSize;
 import play.HorizontalDirection;
 import play.Player;
+import save.SaveService;
 
 class PlayState extends FlxState {
 
@@ -19,7 +18,7 @@ class PlayState extends FlxState {
     private static inline var BALL_MIN_X = 16;
 
     private var saveService: SaveService;
-    private var map = new FlxTilemap();
+    private var floor = new FlxSprite();
     private var balls = new FlxTypedGroup<Ball>();
     private var projectiles = new FlxTypedGroup<Projectile>();
     private var player: Player;
@@ -34,13 +33,15 @@ class PlayState extends FlxState {
     override public function create(): Void {
         super.create();
 
-        var tiledMap = new TiledMap(AssetPaths.map__tmx);
-        var mainLayer: TiledTileLayer = cast tiledMap.getLayer("main");
-        var bgLayer: TiledTileLayer = cast tiledMap.getLayer("bg");
-        var bg = new FlxTilemap();
+        var bg = new FlxSprite(0, 0);
+        bg.immovable = true;
+        bg.setSize(FlxG.width, FlxG.height);
+        bg.loadGraphic(AssetPaths.bg__png);
 
-        bg.loadMapFromArray(bgLayer.tileArray, tiledMap.width, tiledMap.height, AssetPaths.tiles__png, 16, 16, 1);
-        map.loadMapFromArray(mainLayer.tileArray, tiledMap.width, tiledMap.height, AssetPaths.tiles__png, 16, 16, 1);
+        floor = new FlxSprite(0, FlxG.height - TILE_SIZE);
+        floor.immovable = true;
+        floor.setSize(FlxG.width, TILE_SIZE);
+        floor.makeGraphic(FlxG.width, TILE_SIZE, FlxColor.TRANSPARENT);
 
         spawnBall(0.0, true);
 
@@ -52,7 +53,7 @@ class PlayState extends FlxState {
         add(projectiles);
         add(player);
         add(balls);
-        add(map);
+        add(floor);
 
         scoreBoard = new ScoreBoard();
         hud = new HUD(scoreBoard);
@@ -60,8 +61,8 @@ class PlayState extends FlxState {
     }
 
     override public function update(elapsed: Float): Void {
-        FlxG.collide(balls, map);
-        FlxG.collide(player, map);
+        FlxG.collide(balls, floor);
+        FlxG.collide(player, floor);
         FlxG.collide(projectiles, balls, collideProjectileAndBall);
         FlxG.overlap(player, balls, hitPlayer);
 
@@ -119,10 +120,9 @@ class PlayState extends FlxState {
 
     private inline function shoot(): Void {
         if (FlxG.keys.justPressed.Z && canShoot()) {
-            var projectileX = player.x + Player.SIZE / 2 - Projectile.WIDTH / 2;
-            var projectileY = player.y;
+            var projectile = player.shoot();
 
-            projectiles.add(new Projectile(projectileX, projectileY));
+            projectiles.add(projectile);
         }
     }
 
