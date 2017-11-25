@@ -1,17 +1,19 @@
 package play;
 
-import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.FlxG;
 import flixel.FlxObject;
-import flixel.util.FlxColor;
+import flixel.FlxSprite;
+import flixel.system.FlxAssets.FlxGraphicAsset;
 
-class Ball extends FlxShapeCircle {
+class Ball extends FlxSprite {
 
     private static inline var GRAVITY = 400;
     private static inline var FALLING_SPEED = 500;
 
     private var size: BallSize;
-    private var pixelSize: Float;
+    private var hitBoxSize: Float;
+    private var graphicSize: Int;
+    private var asset: FlxGraphicAsset;
     private var horizontalVelocity: Float;
     private var initialVerticalVelocity: Float;
     private var weight: Float;
@@ -20,10 +22,17 @@ class Ball extends FlxShapeCircle {
 
 
     public function new(x: Float, y: Float, size: BallSize, direction: HorizontalDirection) {
-        loadSize(size);
+        super(x, y);
 
-        super(x, y, pixelSize / 2.0, { color: FlxColor.TRANSPARENT }, FlxColor.RED);
-        setSize(pixelSize, pixelSize);
+        loadSize(size);
+        loadGraphic(asset, true, graphicSize, graphicSize);
+        setSize(hitBoxSize, hitBoxSize);
+        offset.x = 2;
+        offset.y = 2;
+
+        animation.add("idle", [0]);
+        animation.add("bounce", [2, 1, 0], 24, false);
+        animation.play("idle");
 
         acceleration.y = weight;
         maxVelocity.set(0, FALLING_SPEED);
@@ -39,6 +48,7 @@ class Ball extends FlxShapeCircle {
     override public function update(elapsed: Float): Void {
         if (justTouched(FlxObject.FLOOR)) {
             velocity.y = -GRAVITY;
+            animation.play("bounce");
         }
 
         if (x <= 0) {
@@ -80,22 +90,36 @@ class Ball extends FlxShapeCircle {
 
         switch(size) {
             case BallSize.Big:
-                pixelSize = 32;
+                hitBoxSize = 32;
+                graphicSize = 36;
+                asset = AssetPaths.big_ball__png;
+
                 weight = GRAVITY;
                 horizontalVelocity = 40;
                 initialVerticalVelocity = -GRAVITY / 2;
+
                 score = 10;
+
             case BallSize.Medium:
-                pixelSize = 16;
+                hitBoxSize = 16;
+                graphicSize = 20;
+                asset = AssetPaths.medium_ball__png;
+
                 weight = GRAVITY * 1.5;
                 horizontalVelocity = 60;
                 initialVerticalVelocity = -GRAVITY / 3;
+
                 score = 40;
+
             case BallSize.Small:
-                pixelSize = 8;
+                hitBoxSize = 8;
+                graphicSize = 12;
+                asset = AssetPaths.small_ball__png;
+
                 weight = GRAVITY * 2;
                 horizontalVelocity = 80;
                 initialVerticalVelocity = -GRAVITY / 4;
+
                 score = 80;
         }
     }
