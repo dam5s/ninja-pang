@@ -10,7 +10,8 @@ class FlxTextExtender {
         self.alignment = FlxTextAlign.CENTER;
         self.borderSize = 2;
         self.borderStyle = FlxTextBorderStyle.NONE;
-        self.borderColor = FlxColor.PURPLE;
+        self.color = FlxColor.WHITE;
+        self.borderColor = FlxColor.BLACK;
         self.font = AssetPaths.manaspc__ttf;
 
         return self;

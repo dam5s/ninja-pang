@@ -6,6 +6,7 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import menu.MainMenuState;
+import ui.AssetsSupport;
 
 
 class GameOverState extends FlxState {
@@ -35,6 +36,7 @@ class GameOverState extends FlxState {
             scoreText.text = 'YOUR SCORE: ${lpad(score, 6)}';
         }
 
+        add(AssetsSupport.buildBgSprite());
         add(gameOver);
         add(scoreText);
     }

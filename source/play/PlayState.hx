@@ -4,12 +4,12 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.util.FlxColor;
 import gameover.GameOverState;
 import play.BallSize;
 import play.HorizontalDirection;
 import play.Player;
 import save.SaveService;
+import ui.AssetsSupport;
 
 class PlayState extends FlxState {
 
@@ -33,15 +33,10 @@ class PlayState extends FlxState {
     override public function create(): Void {
         super.create();
 
-        var bg = new FlxSprite(0, 0);
-        bg.immovable = true;
-        bg.setSize(FlxG.width, FlxG.height);
-        bg.loadGraphic(AssetPaths.bg__png);
-
         floor = new FlxSprite(0, FlxG.height - TILE_SIZE);
         floor.immovable = true;
         floor.setSize(FlxG.width, TILE_SIZE);
-        floor.makeGraphic(FlxG.width, TILE_SIZE, FlxColor.TRANSPARENT);
+        floor.loadGraphic(AssetPaths.mini_ninja_floor__png);
 
         spawnBall(0.0, true);
 
@@ -49,11 +44,11 @@ class PlayState extends FlxState {
         var playerY = FlxG.height - Player.SIZE - TILE_SIZE;
         player = new Player(playerX, playerY);
 
-        add(bg);
+        add(AssetsSupport.buildBgSprite());
         add(projectiles);
+        add(floor);
         add(player);
         add(balls);
-        add(floor);
 
         scoreBoard = new ScoreBoard();
         hud = new HUD(scoreBoard);

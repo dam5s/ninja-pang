@@ -1,17 +1,20 @@
 package play;
 
+import AssetPaths;
 import flixel.FlxSprite;
-import flixel.util.FlxColor;
 
 class Projectile extends FlxSprite {
 
-    public static inline var WIDTH = 4;
+    public static inline var WIDTH = 2;
     private var startingPoint: Float;
 
     public function new(x: Float, y: Float) {
         super(x, y);
-        setSize(WIDTH, 0);
-        makeGraphic(WIDTH, 0, FlxColor.BLUE);
+
+        loadGraphic(AssetPaths.grappling__png, 6, 400);
+
+        setSize(WIDTH, 400);
+        offset.x = 2;
 
         startingPoint = y;
         velocity.y = -300;
@@ -22,9 +25,6 @@ class Projectile extends FlxSprite {
             kill();
             return;
         }
-
-        setSize(WIDTH, startingPoint - y);
-        makeGraphic(WIDTH, Math.floor(startingPoint - y), FlxColor.BLUE);
 
         super.update(elapsed);
     }

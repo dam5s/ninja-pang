@@ -1,9 +1,10 @@
 package menu;
 
-import flixel.util.FlxColor;
 import flixel.FlxG;
-import save.SaveService;
 import flixel.FlxSubState;
+import flixel.util.FlxColor;
+import save.SaveService;
+import ui.AssetsSupport;
 
 
 class HighScoreSubState extends FlxSubState {
@@ -12,6 +13,7 @@ class HighScoreSubState extends FlxSubState {
         super(FlxColor.BLACK);
 
         var score = saveService.loadHighScore();
+        add(AssetsSupport.buildBgSprite());
         add(new MenuItem(0, 1, 'HIGHSCORE ${lpad(score, 6)}'));
     }
 

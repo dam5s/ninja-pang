@@ -2,12 +2,11 @@ package play;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
 class Player extends FlxSprite {
 
-    public static inline var SIZE = 128;
+    public static inline var SIZE = 32;
     private static inline var GRAVITY = 200;
     private static inline var HORIZONTAL_VELOCITY = 200;
 
@@ -16,17 +15,14 @@ class Player extends FlxSprite {
 
     public function new(x: Float, y: Float) {
         super(x, y);
-        makeGraphic(SIZE, SIZE, FlxColor.BLACK);
-        loadGraphic(AssetPaths.player__png, true, SIZE, SIZE);
+        loadGraphic(AssetPaths.mini_ninja__png, true, SIZE, SIZE);
 
-        animation.add("normal", [0]);
-        animation.add("shooting", [1]);
-        animation.add("runningLeft", [2, 3, 4], 12, true, true);
-        animation.add("runningRight", [2, 3, 4], 12, true, false);
+        animation.add("idle", [0, 1, 2, 3], 2);
+        animation.add("shooting", [4]);
+        animation.add("runningLeft", [6, 7, 8, 9], 12, true, true);
+        animation.add("runningRight", [6, 7, 8, 9], 12, true, false);
 
-        setSize(71, 114);
-        offset.x = 25;
-        offset.y = 13;
+        setSize(SIZE, SIZE);
 
         velocity.y = GRAVITY;
         velocity.x = 0;
@@ -51,12 +47,12 @@ class Player extends FlxSprite {
 
     public function stopMoving() {
         velocity.x = 0;
-        animation.play("normal");
+        animation.play("idle");
     }
 
     public function shoot(): Projectile {
-        var projectileX = x + 38 - Projectile.WIDTH / 2;
-        var projectileY = y + 120;
+        var projectileX = x + SIZE / 2 - Projectile.WIDTH / 2;
+        var projectileY = y + SIZE;
 
         animation.play("shooting");
         return new Projectile(projectileX, projectileY);

@@ -1,10 +1,11 @@
 package menu;
 
-import save.SaveService;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import play.PlayState;
+import save.SaveService;
+import ui.AssetsSupport;
 
 
 class MainMenuState extends FlxState {
@@ -14,6 +15,8 @@ class MainMenuState extends FlxState {
     private var selectedItem = 0;
 
     override public function create(): Void {
+        add(AssetsSupport.buildBgSprite());
+
         for (i in 0...items.length) {
             add(new MenuItem(i, items.length, items[i]));
         }
