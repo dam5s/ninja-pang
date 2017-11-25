@@ -85,6 +85,8 @@ class PlayState extends FlxState {
     }
 
     private function collideProjectileAndBall(projectile: Projectile, ball: Ball): Void {
+        FlxG.sound.play(AssetPaths.pop__ogg);
+
         projectile.kill();
         scoreBoard.score += ball.score;
 
@@ -97,6 +99,7 @@ class PlayState extends FlxState {
     private function hitPlayer(player: Player, ball: Ball) {
         if (player.hit()) {
             scoreBoard.lives -= 1;
+            FlxG.sound.play(AssetPaths.hit__ogg);
 
             if (scoreBoard.lives < 0) {
                 var isHighScore = saveService.saveHighScore(scoreBoard.score);
@@ -115,8 +118,9 @@ class PlayState extends FlxState {
 
     private inline function shoot(): Void {
         if (FlxG.keys.justPressed.Z && canShoot()) {
-            var projectile = player.shoot();
+            FlxG.sound.play(AssetPaths.shoot__ogg, .6);
 
+            var projectile = player.shoot();
             projectiles.add(projectile);
         }
     }

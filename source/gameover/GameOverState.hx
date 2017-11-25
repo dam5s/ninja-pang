@@ -39,6 +39,8 @@ class GameOverState extends FlxState {
         add(AssetsSupport.buildBgSprite());
         add(gameOver);
         add(scoreText);
+
+        FlxG.sound.play(AssetPaths.game_over__ogg);
     }
 
     var timeSpent = 0.0;
