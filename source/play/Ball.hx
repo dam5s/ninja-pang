@@ -7,15 +7,14 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 
 class Ball extends FlxSprite {
 
-    private static inline var GRAVITY = 400;
-    private static inline var FALLING_SPEED = 500;
+    private static inline var GRAVITY = 200;
+    private static inline var FALLING_SPEED = 250;
 
     private var size: BallSize;
     private var hitBoxSize: Float;
     private var graphicSize: Int;
     private var asset: FlxGraphicAsset;
     private var horizontalVelocity: Float;
-    private var initialVerticalVelocity: Float;
     private var weight: Float;
 
     public var score(default, null): Int;
@@ -31,13 +30,13 @@ class Ball extends FlxSprite {
         offset.y = 2;
 
         animation.add("idle", [0]);
-        animation.add("bounce", [2, 1, 0], 24, false);
+        animation.add("bounce", [1, 0], 12, false);
         animation.play("idle");
 
         acceleration.y = weight;
         maxVelocity.set(0, FALLING_SPEED);
 
-        velocity.y = initialVerticalVelocity;
+        velocity.y = -GRAVITY / 2;
         velocity.x = horizontalVelocity;
 
         if (direction == HorizontalDirection.Left) {
@@ -95,10 +94,9 @@ class Ball extends FlxSprite {
                 asset = AssetPaths.big_ball__png;
 
                 weight = GRAVITY;
-                horizontalVelocity = 40;
-                initialVerticalVelocity = -GRAVITY / 2;
+                horizontalVelocity = 20;
 
-                score = 10;
+                score = 50;
 
             case BallSize.Medium:
                 hitBoxSize = 16;
@@ -106,10 +104,9 @@ class Ball extends FlxSprite {
                 asset = AssetPaths.medium_ball__png;
 
                 weight = GRAVITY * 1.5;
-                horizontalVelocity = 60;
-                initialVerticalVelocity = -GRAVITY / 3;
+                horizontalVelocity = 40;
 
-                score = 40;
+                score = 100;
 
             case BallSize.Small:
                 hitBoxSize = 8;
@@ -117,10 +114,9 @@ class Ball extends FlxSprite {
                 asset = AssetPaths.small_ball__png;
 
                 weight = GRAVITY * 2;
-                horizontalVelocity = 80;
-                initialVerticalVelocity = -GRAVITY / 4;
+                horizontalVelocity = 60;
 
-                score = 80;
+                score = 200;
         }
     }
 }

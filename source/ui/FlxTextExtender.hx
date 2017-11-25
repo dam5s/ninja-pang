@@ -12,7 +12,6 @@ class FlxTextExtender {
         self.borderStyle = FlxTextBorderStyle.NONE;
         self.color = FlxColor.WHITE;
         self.borderColor = FlxColor.BLACK;
-        self.font = AssetPaths.manaspc__ttf;
 
         return self;
     }

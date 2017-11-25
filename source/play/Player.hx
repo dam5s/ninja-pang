@@ -8,7 +8,7 @@ class Player extends FlxSprite {
 
     public static inline var SIZE = 32;
     private static inline var GRAVITY = 200;
-    private static inline var HORIZONTAL_VELOCITY = 200;
+    private static inline var HORIZONTAL_VELOCITY = 150;
 
     private var immune = false;
 
@@ -22,7 +22,9 @@ class Player extends FlxSprite {
         animation.add("runningLeft", [6, 7, 8, 9], 12, true, true);
         animation.add("runningRight", [6, 7, 8, 9], 12, true, false);
 
-        setSize(SIZE, SIZE);
+        setSize(12, 28);
+        offset.x = 10;
+        offset.y = 5;
 
         velocity.y = GRAVITY;
         velocity.x = 0;
