@@ -22,7 +22,7 @@ class Player extends FlxSprite {
         animation.add("runningLeft", [6, 7, 8, 9], 12, true, true);
         animation.add("runningRight", [6, 7, 8, 9], 12, true, false);
 
-        setSize(12, 28);
+        setSize(12, 26);
         offset.x = 10;
         offset.y = 5;
 
@@ -53,7 +53,7 @@ class Player extends FlxSprite {
     }
 
     public function shoot(): Projectile {
-        var projectileX = x + SIZE / 2 - Projectile.WIDTH / 2;
+        var projectileX = x + 4;
         var projectileY = y + SIZE;
 
         animation.play("shooting");

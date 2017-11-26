@@ -5,7 +5,6 @@ import flixel.FlxSprite;
 
 class Projectile extends FlxSprite {
 
-    public static inline var WIDTH = 2;
     private var startingPoint: Float;
 
     public function new(x: Float, y: Float) {
@@ -13,7 +12,7 @@ class Projectile extends FlxSprite {
 
         loadGraphic(AssetPaths.grappling__png, 6, 400);
 
-        setSize(WIDTH, 400);
+        setSize(2, 400);
         offset.x = 2;
 
         startingPoint = y;
