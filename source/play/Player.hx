@@ -19,8 +19,8 @@ class Player extends FlxSprite {
 
         animation.add("idle", [0, 1, 2, 3], 2);
         animation.add("shooting", [4]);
-        animation.add("runningLeft", [6, 7, 8, 9], 12, true, true);
-        animation.add("runningRight", [6, 7, 8, 9], 12, true, false);
+        animation.add("runningLeft", [5, 6, 7, 8, 9, 10, 11, 12], 12, true, true);
+        animation.add("runningRight", [5, 6, 7, 8, 9, 10, 11, 12], 12, true, false);
 
         setSize(12, 26);
         offset.x = 10;
