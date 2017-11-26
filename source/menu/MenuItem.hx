@@ -9,7 +9,7 @@ import flixel.text.FlxText;
 class MenuItem extends FlxText {
 
     private static inline var SIZE = 32;
-    private static inline var MARGIN = 8;
+    private static inline var MARGIN = 16;
 
     public var index(default, null): Int;
 
