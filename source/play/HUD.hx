@@ -41,8 +41,7 @@ class HUD extends FlxSpriteGroup {
 
 
     private static function styleText(flxText: FlxText) {
-        flxText.borderStyle = FlxTextBorderStyle.SHADOW;
-        flxText.borderColor = 0x99000000;
+        flxText.borderStyle = FlxTextBorderStyle.NONE;
         flxText.size = 12;
     }
 

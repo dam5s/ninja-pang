@@ -2,6 +2,7 @@ package menu;
 
 import flixel.FlxG;
 import flixel.FlxSubState;
+import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.util.FlxColor;
 import save.SaveService;
 import ui.AssetsSupport;
@@ -12,9 +13,12 @@ class HighScoreSubState extends FlxSubState {
     public function new(saveService: SaveService) {
         super(FlxColor.BLACK);
 
-        var score = saveService.loadHighScore();
         add(AssetsSupport.buildBgSprite());
-        add(new MenuItem(0, 1, 'HIGHSCORE ${lpad(score, 6)}'));
+
+        var score = saveService.loadHighScore();
+        var text = new MenuItem(0, 1, 'HIGHSCORE ${lpad(score, 6)}');
+        text.borderStyle = FlxTextBorderStyle.OUTLINE;
+        add(text);
     }
 
     override public function update(elapsed: Float): Void {

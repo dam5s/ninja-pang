@@ -1,17 +1,17 @@
 package ui;
 
 import flixel.text.FlxText;
-import flixel.util.FlxColor;
 
 
 class FlxTextExtender {
 
     public static function defaultStyle(self: FlxText): FlxText {
         self.alignment = FlxTextAlign.CENTER;
-        self.borderSize = 2;
+        self.borderSize = 3;
         self.borderStyle = FlxTextBorderStyle.NONE;
-        self.color = FlxColor.WHITE;
-        self.borderColor = FlxColor.BLACK;
+        self.color = 0xFFe3db35;
+        self.borderColor = 0xFF403912;
+        self.font = AssetPaths.prstart__ttf;
 
         return self;
     }
