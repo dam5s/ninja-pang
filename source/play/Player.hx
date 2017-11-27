@@ -10,7 +10,7 @@ class Player extends FlxSprite {
     private static inline var GRAVITY = 200;
     private static inline var HORIZONTAL_VELOCITY = 150;
 
-    private var immune = false;
+    public var shielded(default, null) = false;
 
 
     public function new(x: Float, y: Float) {
@@ -61,14 +61,14 @@ class Player extends FlxSprite {
     }
 
     public function hit(): Bool {
-        if (immune) {
+        if (shielded) {
             return false;
         }
 
-        immune = true;
+        shielded = true;
 
         new FlxTimer().start(2.0, function(_) {
-            immune = false;
+            shielded = false;
         });
 
         return true;

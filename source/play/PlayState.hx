@@ -22,6 +22,7 @@ class PlayState extends FlxState {
     private var balls = new FlxTypedGroup<Ball>();
     private var projectiles = new FlxTypedGroup<Projectile>();
     private var player: Player;
+    private var playerBuffs: PlayerBuffs;
     private var scoreBoard: ScoreBoard;
     private var hud: HUD;
 
@@ -30,7 +31,7 @@ class PlayState extends FlxState {
         this.saveService = saveService;
     }
 
-    override public function create(): Void {
+    override public function create() {
         super.create();
 
         floor = new FlxSprite(0, FlxG.height - TILE_SIZE);
@@ -43,10 +44,12 @@ class PlayState extends FlxState {
         var playerX = (FlxG.width - Player.SIZE) / 2;
         var playerY = FlxG.height - Player.SIZE - TILE_SIZE;
         player = new Player(playerX, playerY);
+        playerBuffs = new PlayerBuffs(player);
 
         add(AssetsSupport.buildBgSprite());
         add(projectiles);
         add(floor);
+        add(playerBuffs);
         add(player);
         add(balls);
 
@@ -55,7 +58,7 @@ class PlayState extends FlxState {
         add(hud);
     }
 
-    override public function update(elapsed: Float): Void {
+    override public function update(elapsed: Float) {
         FlxG.collide(balls, floor);
         FlxG.collide(player, floor);
         FlxG.collide(projectiles, balls, collideProjectileAndBall);
@@ -84,7 +87,7 @@ class PlayState extends FlxState {
         }
     }
 
-    private function collideProjectileAndBall(projectile: Projectile, ball: Ball): Void {
+    private function collideProjectileAndBall(projectile: Projectile, ball: Ball) {
         FlxG.sound.play(AssetPaths.pop__ogg);
 
         projectile.kill();
@@ -109,14 +112,14 @@ class PlayState extends FlxState {
     }
 
 
-    private inline function movePlayer(): Void {
+    private inline function movePlayer() {
         if (FlxG.keys.pressed.LEFT) player.moveLeft();
         if (FlxG.keys.justReleased.LEFT) player.stopMoving();
         if (FlxG.keys.pressed.RIGHT) player.moveRight();
         if (FlxG.keys.justReleased.RIGHT) player.stopMoving();
     }
 
-    private inline function shoot(): Void {
+    private inline function shoot() {
         if (FlxG.keys.justPressed.Z && canShoot()) {
             FlxG.sound.play(AssetPaths.shoot__ogg, .6);
 
