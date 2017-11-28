@@ -2,6 +2,7 @@ package menu;
 
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.util.FlxTimer;
 import play.PlayState;
 import save.SaveService;
 import ui.AssetsSupport;
@@ -11,7 +12,7 @@ class MainMenuState extends FlxState {
 
     private var saveService = new SaveService();
     private var items = ["START", "HIGHSCORE", "EXIT"];
-    private var selectedItem = 0;
+    private var selectedIndex = 0;
 
     override public function create(): Void {
         add(AssetsSupport.buildBgSprite());
@@ -22,31 +23,55 @@ class MainMenuState extends FlxState {
     }
 
     override public function update(elapsed: Float): Void {
-        if (FlxG.keys.justPressed.Z) {
-            launchItem();
+        if (FlxG.mouse.justReleased) {
+            var mouseX = FlxG.mouse.x;
+            var mouseY = FlxG.mouse.y;
+
+            forEachOfType(MenuItem, function(item: MenuItem) {
+                var xInBounds = item.x <= mouseX && mouseX <= (item.x + item.width);
+                var yInBounds = item.y <= mouseY && mouseY <= (item.y + item.height);
+
+
+                if (xInBounds && yInBounds) {
+                    selectedIndex = items.indexOf(item.text);
+                    selectMenuItem();
+                    new FlxTimer().start(.3, function(_) launchItem(item.text));
+                }
+            });
+
             return;
         }
 
-        if (FlxG.keys.justPressed.DOWN) selectedItem += 1;
-        if (FlxG.keys.justPressed.UP) selectedItem -= 1;
+        if (FlxG.keys.justPressed.Z || FlxG.keys.justPressed.ENTER) {
+            launchItem(items[selectedIndex]);
+            return;
+        }
 
-        if (selectedItem < 0) selectedItem = 0;
-        if (selectedItem >= items.length) selectedItem = items.length - 1;
+        if (FlxG.keys.justPressed.DOWN) selectedIndex += 1;
+        if (FlxG.keys.justPressed.UP) selectedIndex -= 1;
+
+        if (selectedIndex >= items.length) selectedIndex = items.length - 1;
+        if (selectedIndex < 0) selectedIndex = 0;
+
+        selectMenuItem();
+
+        super.update(elapsed);
+    }
+
+    private inline function selectMenuItem() {
+        var selectedText = items[selectedIndex];
 
         forEachOfType(MenuItem, function(item: MenuItem) {
-            if (selectedItem == item.index) {
+            if (selectedText == item.text) {
                 item.select();
             } else {
                 item.deselect();
             }
         });
-
-        super.update(elapsed);
     }
 
-
-    private inline function launchItem() {
-        switch (items[selectedItem]) {
+    private inline function launchItem(text: String) {
+        switch (text) {
             case "START": FlxG.switchState(new PlayState(saveService));
             case "HIGHSCORE": openSubState(new HighScoreSubState(saveService));
             case "RESET": saveService.resetHighScore();

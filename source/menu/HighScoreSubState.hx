@@ -24,8 +24,10 @@ class HighScoreSubState extends FlxSubState {
     }
 
     override public function update(elapsed: Float): Void {
-        if (FlxG.keys.justPressed.X) close();
-        if (FlxG.keys.justPressed.Z) close();
+        var justPressed = FlxG.keys.justPressed;
+
+        if (justPressed.X || justPressed.ESCAPE || justPressed.Z || justPressed.ENTER)
+            close();
     }
 
 
