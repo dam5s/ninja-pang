@@ -6,6 +6,7 @@ import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.util.FlxColor;
 import save.SaveService;
 import ui.AssetsSupport;
+import ui.FlxTextExtender;
 
 
 class HighScoreSubState extends FlxSubState {
@@ -18,6 +19,7 @@ class HighScoreSubState extends FlxSubState {
         var score = saveService.loadHighScore();
         var text = new MenuItem(0, 1, 'HIGHSCORE ${lpad(score, 6)}');
         text.borderStyle = FlxTextBorderStyle.OUTLINE;
+        text.color = FlxTextExtender.DEFAULT_TEXT_COLOR;
         add(text);
     }
 

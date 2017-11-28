@@ -2,7 +2,6 @@ package menu;
 
 import flixel.FlxG;
 import flixel.FlxState;
-import flixel.text.FlxText;
 import play.PlayState;
 import save.SaveService;
 import ui.AssetsSupport;
@@ -36,9 +35,9 @@ class MainMenuState extends FlxState {
 
         forEachOfType(MenuItem, function(item: MenuItem) {
             if (selectedItem == item.index) {
-                item.borderStyle = FlxTextBorderStyle.OUTLINE;
+                item.select();
             } else {
-                item.borderStyle = FlxTextBorderStyle.NONE;
+                item.deselect();
             }
         });
 
