@@ -1,5 +1,6 @@
 package gameover;
 
+import interactions.Interactions;
 using ui.FlxTextExtender;
 
 import flixel.FlxG;
@@ -11,12 +12,14 @@ import ui.AssetsSupport;
 
 class GameOverState extends FlxState {
 
+    private var interactions: Interactions;
     private var score: Int;
     private var isHighScore: Bool;
 
 
-    public function new(score: Int, isHighScore: Bool) {
+    public function new(interactions: Interactions, score: Int, isHighScore: Bool) {
         super();
+        this.interactions = interactions;
         this.score = score;
         this.isHighScore = isHighScore;
     }
@@ -48,7 +51,7 @@ class GameOverState extends FlxState {
     override public function update(elapsed: Float): Void {
         timeSpent += elapsed;
 
-        if (FlxG.keys.justPressed.Z && timeSpent > 1) {
+        if (interactions.skip() && timeSpent > 1) {
             FlxG.switchState(new MainMenuState());
         }
 

@@ -1,9 +1,9 @@
 package menu;
 
-import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.util.FlxColor;
+import interactions.Interactions;
 import save.SaveService;
 import ui.AssetsSupport;
 import ui.FlxTextExtender;
@@ -11,7 +11,11 @@ import ui.FlxTextExtender;
 
 class HighScoreSubState extends FlxSubState {
 
-    public function new(saveService: SaveService) {
+    private var interactions: Interactions;
+
+    public function new(saveService: SaveService, interactions: Interactions) {
+        this.interactions = interactions;
+
         super(FlxColor.BLACK);
 
         add(AssetsSupport.buildBgSprite());
@@ -24,9 +28,7 @@ class HighScoreSubState extends FlxSubState {
     }
 
     override public function update(elapsed: Float): Void {
-        var justPressed = FlxG.keys.justPressed;
-
-        if (justPressed.X || justPressed.ESCAPE || justPressed.Z || justPressed.ENTER)
+        if (interactions.skip())
             close();
     }
 

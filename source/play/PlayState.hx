@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import gameover.GameOverState;
+import interactions.Interactions;
 import play.BallSize;
 import play.HorizontalDirection;
 import play.Player;
@@ -18,6 +19,7 @@ class PlayState extends FlxState {
     private static inline var BALL_MIN_X = 16;
 
     private var saveService: SaveService;
+    private var interactions: Interactions;
     private var floor = new FlxSprite();
     private var balls = new FlxTypedGroup<Ball>();
     private var projectiles = new FlxTypedGroup<Projectile>();
@@ -26,9 +28,10 @@ class PlayState extends FlxState {
     private var scoreBoard: ScoreBoard;
     private var hud: HUD;
 
-    public function new(saveService: SaveService) {
+    public function new(saveService: SaveService, interactions: Interactions) {
         super();
         this.saveService = saveService;
+        this.interactions = interactions;
     }
 
     override public function create() {
@@ -106,21 +109,20 @@ class PlayState extends FlxState {
 
             if (scoreBoard.lives < 0) {
                 var isHighScore = saveService.saveHighScore(scoreBoard.score);
-                FlxG.switchState(new GameOverState(scoreBoard.score, isHighScore));
+                FlxG.switchState(new GameOverState(interactions, scoreBoard.score, isHighScore));
             }
         }
     }
 
 
     private inline function movePlayer() {
-        if (FlxG.keys.pressed.LEFT) player.moveLeft();
-        if (FlxG.keys.justReleased.LEFT) player.stopMoving();
-        if (FlxG.keys.pressed.RIGHT) player.moveRight();
-        if (FlxG.keys.justReleased.RIGHT) player.stopMoving();
+        if (interactions.left()) player.moveLeft();
+        if (interactions.right()) player.moveRight();
+        if (interactions.stopMoving()) player.stopMoving();
     }
 
     private inline function shoot() {
-        if (FlxG.keys.justPressed.Z && canShoot()) {
+        if (interactions.shoot() && canShoot()) {
             FlxG.sound.play(AssetPaths.shoot__ogg, .6);
 
             var projectile = player.shoot();
