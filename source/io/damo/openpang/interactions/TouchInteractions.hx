@@ -7,6 +7,8 @@ import io.damo.openpang.menu.MenuItem;
 #if FLX_TOUCH
 class TouchInteractions implements Interactions {
 
+    private static inline var DIRECTION_BUTTON_SIZE = 100;
+
     public function new() {}
 
     public function skip(): Bool {
@@ -22,8 +24,12 @@ class TouchInteractions implements Interactions {
     public function left(): Bool {
         var touches = FlxG.touches.list;
 
-        if (touches.length == 1) {
-            return touches[0].x <= FlxG.width / 2;
+        if (touches.length <= 2) {
+            for (touch in touches) {
+                if (touch.x <= DIRECTION_BUTTON_SIZE) {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -32,8 +38,12 @@ class TouchInteractions implements Interactions {
     public function right(): Bool {
         var touches = FlxG.touches.list;
 
-        if (touches.length == 1) {
-            return touches[0].x > FlxG.width / 2;
+        if (touches.length <= 2) {
+            for (touch in touches) {
+                if (touch.x > DIRECTION_BUTTON_SIZE && touch.x <= DIRECTION_BUTTON_SIZE * 2) {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -45,9 +55,12 @@ class TouchInteractions implements Interactions {
 
     public function shoot(): Bool {
         var startedTouches = FlxG.touches.justStarted();
-        var touches = FlxG.touches.list;
 
-        return startedTouches.length == 1 && touches.length == 2;
+        if (startedTouches.length == 1) {
+            return startedTouches[0].x > FlxG.width / 2;
+        }
+
+        return false;
     }
 
     public function selectedMenuItem(menuItems: Array<MenuItem>): Option<MenuItem> {
