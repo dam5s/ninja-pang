@@ -10,6 +10,10 @@ class InteractionsFactory {
         #end
         #end
 
+        #if FLX_TOUCH
+        return new TouchInteractions();
+        #end
+
         return new NoOpInteractions();
     }
 }
