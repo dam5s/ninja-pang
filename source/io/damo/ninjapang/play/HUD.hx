@@ -1,10 +1,10 @@
-package io.damo.openpang.play;
+package io.damo.ninjapang.play;
 
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 
-using io.damo.openpang.ui.FlxTextExtender;
+using io.damo.ninjapang.ui.FlxTextExtender;
 
 
 class HUD extends FlxSpriteGroup {

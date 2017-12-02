@@ -1,8 +1,8 @@
-package io.damo.openpang;
+package io.damo.ninjapang;
 
 
-import io.damo.openpang.interactions.Interactions;
-import io.damo.openpang.interactions.InteractionsFactory;
+import io.damo.ninjapang.interactions.Interactions;
+import io.damo.ninjapang.interactions.InteractionsFactory;
 
 class Env {
 

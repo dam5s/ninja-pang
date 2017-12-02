@@ -1,12 +1,12 @@
-package io.damo.openpang.menu;
+package io.damo.ninjapang.menu;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.util.FlxTimer;
 import haxe.ds.Option;
-import io.damo.openpang.interactions.Interactions;
-import io.damo.openpang.play.PlayState;
+import io.damo.ninjapang.interactions.Interactions;
+import io.damo.ninjapang.play.PlayState;
 
 
 class MainMenuState extends FlxState {

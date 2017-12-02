@@ -1,4 +1,4 @@
-package io.damo.openpang;
+package io.damo.ninjapang;
 
 
 class ScoreBoard {

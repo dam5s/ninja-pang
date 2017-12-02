@@ -1,13 +1,13 @@
-package io.damo.openpang.gameover;
+package io.damo.ninjapang.gameover;
 
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
-import io.damo.openpang.interactions.Interactions;
-import io.damo.openpang.menu.MainMenuState;
-import io.damo.openpang.ui.AssetsSupport;
+import io.damo.ninjapang.interactions.Interactions;
+import io.damo.ninjapang.menu.MainMenuState;
+import io.damo.ninjapang.ui.AssetsSupport;
 
-using io.damo.openpang.ui.FlxTextExtender;
+using io.damo.ninjapang.ui.FlxTextExtender;
 
 
 class GameOverState extends FlxState {

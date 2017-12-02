@@ -1,11 +1,11 @@
-package io.damo.openpang;
+package io.damo.ninjapang;
 
 import flixel.util.FlxSave;
 
 
 class SaveService {
 
-    private static inline var GLOBAL_SAVE_DATA: String = "OpenPangGlobalSave";
+    private static inline var GLOBAL_SAVE_DATA: String = "NinjaPangGlobalSave";
     private var save = new FlxSave();
 
 

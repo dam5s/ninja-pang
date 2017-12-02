@@ -1,10 +1,10 @@
-package io.damo.openpang.menu;
+package io.damo.ninjapang.menu;
 
-using io.damo.openpang.ui.FlxTextExtender;
+using io.damo.ninjapang.ui.FlxTextExtender;
 
 import flixel.FlxG;
 import flixel.text.FlxText;
-import io.damo.openpang.ui.FlxTextExtender;
+import io.damo.ninjapang.ui.FlxTextExtender;
 
 
 class MenuItem extends FlxText {

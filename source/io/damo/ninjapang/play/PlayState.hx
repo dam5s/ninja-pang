@@ -1,15 +1,15 @@
-package io.damo.openpang.play;
+package io.damo.ninjapang.play;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import io.damo.openpang.gameover.GameOverState;
-import io.damo.openpang.interactions.Interactions;
-import io.damo.openpang.play.BallSize;
-import io.damo.openpang.play.HorizontalDirection;
-import io.damo.openpang.play.Player;
-import io.damo.openpang.ui.AssetsSupport;
+import io.damo.ninjapang.gameover.GameOverState;
+import io.damo.ninjapang.interactions.Interactions;
+import io.damo.ninjapang.play.BallSize;
+import io.damo.ninjapang.play.HorizontalDirection;
+import io.damo.ninjapang.play.Player;
+import io.damo.ninjapang.ui.AssetsSupport;
 
 
 class PlayState extends FlxState {

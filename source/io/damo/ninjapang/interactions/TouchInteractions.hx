@@ -1,8 +1,8 @@
-package io.damo.openpang.interactions;
+package io.damo.ninjapang.interactions;
 
 import flixel.FlxG;
 import haxe.ds.Option;
-import io.damo.openpang.menu.MenuItem;
+import io.damo.ninjapang.menu.MenuItem;
 
 #if FLX_TOUCH
 class TouchInteractions implements Interactions {

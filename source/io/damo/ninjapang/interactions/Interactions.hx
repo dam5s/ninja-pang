@@ -1,7 +1,7 @@
-package io.damo.openpang.interactions;
+package io.damo.ninjapang.interactions;
 
 import haxe.ds.Option;
-import io.damo.openpang.menu.MenuItem;
+import io.damo.ninjapang.menu.MenuItem;
 
 
 interface Interactions {

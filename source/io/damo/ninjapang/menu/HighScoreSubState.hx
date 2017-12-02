@@ -1,11 +1,11 @@
-package io.damo.openpang.menu;
+package io.damo.ninjapang.menu;
 
 import flixel.FlxSubState;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.util.FlxColor;
-import io.damo.openpang.interactions.Interactions;
-import io.damo.openpang.ui.AssetsSupport;
-import io.damo.openpang.ui.FlxTextExtender;
+import io.damo.ninjapang.interactions.Interactions;
+import io.damo.ninjapang.ui.AssetsSupport;
+import io.damo.ninjapang.ui.FlxTextExtender;
 
 
 class HighScoreSubState extends FlxSubState {

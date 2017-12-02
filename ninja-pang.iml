@@ -58,16 +58,5 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library name="haxelib|/home/dam5s/dev/haxe/lib/flixel-addons/2,5,0">
-        <CLASSES>
-          <root url="file://$USER_HOME$/dev/haxe/lib/flixel-addons/2,5,0" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$USER_HOME$/dev/haxe/lib/flixel-addons/2,5,0" />
-        </SOURCES>
-      </library>
-    </orderEntry>
   </component>
 </module>

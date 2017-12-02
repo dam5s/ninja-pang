@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/open-pang.iml" filepath="$PROJECT_DIR$/open-pang.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ninja-pang.iml" filepath="$PROJECT_DIR$/ninja-pang.iml" />
     </modules>
   </component>
 </project>

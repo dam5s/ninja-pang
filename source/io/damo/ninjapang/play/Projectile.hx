@@ -1,8 +1,8 @@
-package io.damo.openpang.play;
+package io.damo.ninjapang.play;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import io.damo.openpang.AssetPaths;
+import io.damo.ninjapang.AssetPaths;
 
 
 class Projectile extends FlxSprite {

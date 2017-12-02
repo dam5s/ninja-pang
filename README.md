@@ -1,4 +1,4 @@
-# Open Pang
+# Ninja Pang
 
 Copyright (C) 2017  Damien Le Berrigaud
 
@@ -38,11 +38,11 @@ The current version is very basic and only offer one game mode, keeping track of
 lime setup android
 ```
 
-download android sdk (should be version 22), do not download the rest.
-download android ndk r15c (r16 does NOT work).
+Download Android SDK (should be version 22, newer version will not work), do not download the rest.
+Download Android NDK r15c (r16 does NOT work).
 
 ```
 lime build android -DPLATFORM=android-26
 ```
 
-Platform 27 will not work.
+Platform 27 will not work, it uses Clang instead of GCC.

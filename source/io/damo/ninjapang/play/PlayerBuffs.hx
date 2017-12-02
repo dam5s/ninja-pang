@@ -1,8 +1,8 @@
-package io.damo.openpang.play;
+package io.damo.ninjapang.play;
 
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
-import io.damo.openpang.AssetPaths;
+import io.damo.ninjapang.AssetPaths;
 
 
 class PlayerBuffs extends FlxSprite {
