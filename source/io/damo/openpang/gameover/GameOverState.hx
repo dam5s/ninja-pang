@@ -13,19 +13,15 @@ using io.damo.openpang.ui.FlxTextExtender;
 class GameOverState extends FlxState {
 
     private var interactions: Interactions;
-    private var score: Int;
-    private var isHighScore: Bool;
-
-
-    public function new(interactions: Interactions, score: Int, isHighScore: Bool) {
-        super();
-        this.interactions = interactions;
-        this.score = score;
-        this.isHighScore = isHighScore;
-    }
+    private var saveService: SaveService;
+    private var scoreBoard: ScoreBoard;
 
     override public function create() {
         super.create();
+
+        interactions = Env.instance.interactions;
+        saveService = Env.instance.saveService;
+        scoreBoard = Env.instance.scoreBoard;
 
         var gameOver = new FlxText(0, FlxG.height / 2 - 64 - 32, FlxG.width).defaultStyle();
         gameOver.size = 64;
@@ -35,10 +31,11 @@ class GameOverState extends FlxState {
         var scoreText = new FlxText(0, FlxG.height / 2 + 32, FlxG.width).defaultStyle();
         scoreText.size = 32;
 
+        var isHighScore = saveService.saveHighScore(scoreBoard.score);
         if (isHighScore) {
-            scoreText.text = 'NEW HIGHSCORE! ${lpad(score, 6)}';
+            scoreText.text = 'NEW HIGHSCORE! ${lpad(scoreBoard.score, 6)}';
         } else {
-            scoreText.text = 'YOUR SCORE: ${lpad(score, 6)}';
+            scoreText.text = 'YOUR SCORE: ${lpad(scoreBoard.score, 6)}';
         }
 
         add(AssetsSupport.buildBgSprite());

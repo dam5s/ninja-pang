@@ -1,4 +1,4 @@
-package io.damo.openpang.play;
+package io.damo.openpang;
 
 
 class ScoreBoard {

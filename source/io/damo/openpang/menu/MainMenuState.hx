@@ -5,27 +5,33 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.util.FlxTimer;
 import haxe.ds.Option;
-import io.damo.openpang.interactions.InteractionsFactory;
+import io.damo.openpang.interactions.Interactions;
 import io.damo.openpang.play.PlayState;
-import io.damo.openpang.save.SaveService;
 
 
 class MainMenuState extends FlxState {
 
-    private var saveService = new SaveService();
-    private var interactions = InteractionsFactory.create();
 
-    private var menuItems: Array<MenuItem> = [];
-    private var items = ["START", "HIGHSCORE", "EXIT"];
-    private var selectedIndex = 0;
+    private var saveService: SaveService;
+    private var interactions: Interactions;
+    private var menuTexts: Array<String>;
+    private var menuItems: Array<MenuItem>;
+    private var selectedIndex: Int;
 
     override public function create() {
         super.create();
 
+        saveService = Env.instance.saveService;
+        interactions = Env.instance.interactions;
+
         add(new FlxSprite(0, 0, AssetPaths.mini_ninja_bg__png));
 
-        for (i in 0...items.length) {
-            var menuItem = new MenuItem(i, items.length, items[i]);
+        selectedIndex = 0;
+        menuTexts = ["START", "HIGHSCORE", "EXIT"];
+        menuItems = [];
+
+        for (i in 0...menuTexts.length) {
+            var menuItem = new MenuItem(i, menuTexts.length, menuTexts[i]);
             menuItems.push(menuItem);
             add(menuItem);
         }
@@ -34,7 +40,7 @@ class MainMenuState extends FlxState {
     override public function update(elapsed: Float): Void {
         switch (interactions.selectedMenuItem(menuItems)) {
             case Option.Some(selectedItem):
-                selectedIndex = items.indexOf(selectedItem.text);
+                selectedIndex = menuTexts.indexOf(selectedItem.text);
                 selectMenuItem();
                 new FlxTimer().start(.3, function(_) launchItem(selectedItem.text));
             case Option.None:
@@ -42,14 +48,14 @@ class MainMenuState extends FlxState {
         }
 
         if (interactions.accept()) {
-            launchItem(items[selectedIndex]);
+            launchItem(menuTexts[selectedIndex]);
             return;
         }
 
         if (interactions.down()) selectedIndex += 1;
         if (interactions.up()) selectedIndex -= 1;
 
-        if (selectedIndex >= items.length) selectedIndex = items.length - 1;
+        if (selectedIndex >= menuTexts.length) selectedIndex = menuTexts.length - 1;
         if (selectedIndex < 0) selectedIndex = 0;
 
         selectMenuItem();
@@ -58,7 +64,7 @@ class MainMenuState extends FlxState {
     }
 
     private inline function selectMenuItem() {
-        var selectedText = items[selectedIndex];
+        var selectedText = menuTexts[selectedIndex];
 
         forEachOfType(MenuItem, function(item: MenuItem) {
             if (selectedText == item.text) {
@@ -71,8 +77,8 @@ class MainMenuState extends FlxState {
 
     private inline function launchItem(text: String) {
         switch (text) {
-            case "START": FlxG.switchState(new PlayState(saveService, interactions));
-            case "HIGHSCORE": openSubState(new HighScoreSubState(saveService, interactions));
+            case "START": FlxG.switchState(new PlayState());
+            case "HIGHSCORE": openSubState(new HighScoreSubState());
             case "RESET": saveService.resetHighScore();
             case "EXIT": openfl.Lib.close();
         }

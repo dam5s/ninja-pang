@@ -4,7 +4,6 @@ import flixel.FlxSubState;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.util.FlxColor;
 import io.damo.openpang.interactions.Interactions;
-import io.damo.openpang.save.SaveService;
 import io.damo.openpang.ui.AssetsSupport;
 import io.damo.openpang.ui.FlxTextExtender;
 
@@ -12,11 +11,18 @@ import io.damo.openpang.ui.FlxTextExtender;
 class HighScoreSubState extends FlxSubState {
 
     private var interactions: Interactions;
+    private var saveService: SaveService;
 
-    public function new(saveService: SaveService, interactions: Interactions) {
-        this.interactions = interactions;
-
+    public function new() {
         super(FlxColor.BLACK);
+    }
+
+    override public function create(): Void {
+        super.create();
+
+        this.interactions = Env.instance.interactions;
+        this.saveService = Env.instance.saveService;
+
 
         add(AssetsSupport.buildBgSprite());
 

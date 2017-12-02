@@ -1,4 +1,4 @@
-package io.damo.openpang.save;
+package io.damo.openpang;
 
 import flixel.util.FlxSave;
 

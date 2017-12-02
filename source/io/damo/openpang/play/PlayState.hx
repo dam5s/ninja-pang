@@ -9,7 +9,6 @@ import io.damo.openpang.interactions.Interactions;
 import io.damo.openpang.play.BallSize;
 import io.damo.openpang.play.HorizontalDirection;
 import io.damo.openpang.play.Player;
-import io.damo.openpang.save.SaveService;
 import io.damo.openpang.ui.AssetsSupport;
 
 
@@ -21,28 +20,30 @@ class PlayState extends FlxState {
 
     private var saveService: SaveService;
     private var interactions: Interactions;
-    private var floor = new FlxSprite();
-    private var balls = new FlxTypedGroup<Ball>();
-    private var projectiles = new FlxTypedGroup<Projectile>();
+    private var scoreBoard: ScoreBoard;
+
+    private var floor: FlxSprite;
+    private var balls: FlxTypedGroup<Ball>;
+    private var projectiles: FlxTypedGroup<Projectile>;
     private var player: Player;
     private var playerBuffs: PlayerBuffs;
-    private var scoreBoard: ScoreBoard;
     private var hud: HUD;
-
-    public function new(saveService: SaveService, interactions: Interactions) {
-        super();
-        this.saveService = saveService;
-        this.interactions = interactions;
-    }
 
     override public function create() {
         super.create();
+
+        saveService = Env.instance.saveService;
+        interactions = Env.instance.interactions;
+        scoreBoard = Env.instance.resetScoreBoard();
+
+        projectiles = new FlxTypedGroup<Projectile>();
 
         floor = new FlxSprite(0, FlxG.height - TILE_SIZE);
         floor.immovable = true;
         floor.setSize(FlxG.width, TILE_SIZE);
         floor.loadGraphic(AssetPaths.mini_ninja_floor__png);
 
+        balls = new FlxTypedGroup<Ball>();
         spawnBall(0.0, true);
 
         var playerX = (FlxG.width - Player.SIZE) / 2;
@@ -50,15 +51,14 @@ class PlayState extends FlxState {
         player = new Player(playerX, playerY);
         playerBuffs = new PlayerBuffs(player);
 
+        hud = new HUD(scoreBoard);
+
         add(AssetsSupport.buildBgSprite());
         add(projectiles);
         add(floor);
         add(playerBuffs);
         add(player);
         add(balls);
-
-        scoreBoard = new ScoreBoard();
-        hud = new HUD(scoreBoard);
         add(hud);
     }
 
@@ -110,8 +110,7 @@ class PlayState extends FlxState {
             FlxG.camera.shake(0.02, 0.35);
 
             if (scoreBoard.lives < 0) {
-                var isHighScore = saveService.saveHighScore(scoreBoard.score);
-                FlxG.switchState(new GameOverState(interactions, scoreBoard.score, isHighScore));
+                FlxG.switchState(new GameOverState());
             }
         }
     }
