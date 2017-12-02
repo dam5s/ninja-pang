@@ -1,4 +1,4 @@
-package play;
+package io.damo.openpang.play;
 
 import flixel.FlxG;
 import flixel.FlxObject;

@@ -1,10 +1,10 @@
-package menu;
+package io.damo.openpang.menu;
 
-using ui.FlxTextExtender;
+using io.damo.openpang.ui.FlxTextExtender;
 
 import flixel.FlxG;
 import flixel.text.FlxText;
-import ui.FlxTextExtender;
+import io.damo.openpang.ui.FlxTextExtender;
 
 
 class MenuItem extends FlxText {
@@ -21,7 +21,7 @@ class MenuItem extends FlxText {
 
     public function new(index: Int, totalItems: Int, text: String) {
         var menuHeight = totalItems * SELECTED_SIZE + (totalItems - 1) * MARGIN;
-        var marginBeforeMenu = (400 - menuHeight) / 2;
+        var marginBeforeMenu = (FlxG.height - menuHeight) / 2;
 
         var y = marginBeforeMenu + index * (SELECTED_SIZE + MARGIN);
 

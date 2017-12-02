@@ -31,3 +31,18 @@ The current version is very basic and only offer one game mode, keeping track of
 ## External resources
 
 * [FreeSound](https://freesound.org/)
+
+## Building for Android
+
+```
+lime setup android
+```
+
+download android sdk (should be version 22), do not download the rest.
+download android ndk r15c (r16 does NOT work).
+
+```
+lime build android -DPLATFORM=android-26
+```
+
+Platform 27 will not work.

@@ -1,13 +1,13 @@
-package gameover;
-
-import interactions.Interactions;
-using ui.FlxTextExtender;
+package io.damo.openpang.gameover;
 
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
-import menu.MainMenuState;
-import ui.AssetsSupport;
+import io.damo.openpang.interactions.Interactions;
+import io.damo.openpang.menu.MainMenuState;
+import io.damo.openpang.ui.AssetsSupport;
+
+using io.damo.openpang.ui.FlxTextExtender;
 
 
 class GameOverState extends FlxState {
@@ -24,7 +24,9 @@ class GameOverState extends FlxState {
         this.isHighScore = isHighScore;
     }
 
-    override public function create(): Void {
+    override public function create() {
+        super.create();
+
         var gameOver = new FlxText(0, FlxG.height / 2 - 64 - 32, FlxG.width).defaultStyle();
         gameOver.size = 64;
         gameOver.text = "GAME OVER";

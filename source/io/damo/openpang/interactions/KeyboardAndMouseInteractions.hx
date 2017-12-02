@@ -1,8 +1,8 @@
-package interactions;
+package io.damo.openpang.interactions;
 
 import flixel.FlxG;
 import haxe.ds.Option;
-import menu.MenuItem;
+import io.damo.openpang.menu.MenuItem;
 
 
 #if FLX_KEYBOARD
@@ -30,11 +30,11 @@ class KeyboardAndMouseInteractions implements Interactions {
     }
 
     public function left(): Bool {
-        return FlxG.keys.justPressed.LEFT;
+        return FlxG.keys.pressed.LEFT;
     }
 
     public function right(): Bool {
-        return FlxG.keys.justPressed.RIGHT;
+        return FlxG.keys.pressed.RIGHT;
     }
 
     public function stopMoving(): Bool {

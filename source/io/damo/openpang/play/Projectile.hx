@@ -1,7 +1,9 @@
-package play;
+package io.damo.openpang.play;
 
-import AssetPaths;
+import flixel.FlxG;
 import flixel.FlxSprite;
+import io.damo.openpang.AssetPaths;
+
 
 class Projectile extends FlxSprite {
 
@@ -10,9 +12,9 @@ class Projectile extends FlxSprite {
     public function new(x: Float, y: Float) {
         super(x, y);
 
-        loadGraphic(AssetPaths.grappling__png, 6, 400);
+        loadGraphic(AssetPaths.grappling__png, 6, FlxG.height);
 
-        setSize(2, 400);
+        setSize(2, FlxG.height);
         offset.x = 2;
 
         startingPoint = y;

@@ -1,7 +1,7 @@
-package interactions;
+package io.damo.openpang.interactions;
 
 import haxe.ds.Option;
-import menu.MenuItem;
+import io.damo.openpang.menu.MenuItem;
 
 
 class NoOpInteractions implements Interactions {

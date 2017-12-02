@@ -1,4 +1,4 @@
-package interactions;
+package io.damo.openpang.interactions;
 
 
 class InteractionsFactory {

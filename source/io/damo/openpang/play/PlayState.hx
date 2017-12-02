@@ -1,16 +1,17 @@
-package play;
+package io.damo.openpang.play;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import gameover.GameOverState;
-import interactions.Interactions;
-import play.BallSize;
-import play.HorizontalDirection;
-import play.Player;
-import save.SaveService;
-import ui.AssetsSupport;
+import io.damo.openpang.gameover.GameOverState;
+import io.damo.openpang.interactions.Interactions;
+import io.damo.openpang.play.BallSize;
+import io.damo.openpang.play.HorizontalDirection;
+import io.damo.openpang.play.Player;
+import io.damo.openpang.save.SaveService;
+import io.damo.openpang.ui.AssetsSupport;
+
 
 class PlayState extends FlxState {
 
@@ -106,6 +107,7 @@ class PlayState extends FlxState {
         if (player.hit()) {
             scoreBoard.lives -= 1;
             FlxG.sound.play(AssetPaths.hit__ogg);
+            FlxG.camera.shake(0.02, 0.35);
 
             if (scoreBoard.lives < 0) {
                 var isHighScore = saveService.saveHighScore(scoreBoard.score);
@@ -116,9 +118,9 @@ class PlayState extends FlxState {
 
 
     private inline function movePlayer() {
+        if (interactions.stopMoving()) player.stopMoving();
         if (interactions.left()) player.moveLeft();
         if (interactions.right()) player.moveRight();
-        if (interactions.stopMoving()) player.stopMoving();
     }
 
     private inline function shoot() {

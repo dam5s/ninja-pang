@@ -1,13 +1,13 @@
-package menu;
+package io.damo.openpang.menu;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.util.FlxTimer;
 import haxe.ds.Option;
-import interactions.InteractionsFactory;
-import play.PlayState;
-import save.SaveService;
-import ui.AssetsSupport;
+import io.damo.openpang.interactions.InteractionsFactory;
+import io.damo.openpang.play.PlayState;
+import io.damo.openpang.save.SaveService;
 
 
 class MainMenuState extends FlxState {
@@ -19,8 +19,10 @@ class MainMenuState extends FlxState {
     private var items = ["START", "HIGHSCORE", "EXIT"];
     private var selectedIndex = 0;
 
-    override public function create(): Void {
-        add(AssetsSupport.buildBgSprite());
+    override public function create() {
+        super.create();
+
+        add(new FlxSprite(0, 0, AssetPaths.mini_ninja_bg__png));
 
         for (i in 0...items.length) {
             var menuItem = new MenuItem(i, items.length, items[i]);

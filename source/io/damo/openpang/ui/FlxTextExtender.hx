@@ -1,4 +1,4 @@
-package ui;
+package io.damo.openpang.ui;
 
 import flixel.text.FlxText;
 

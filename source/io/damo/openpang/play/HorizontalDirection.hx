@@ -1,4 +1,4 @@
-package play;
+package io.damo.openpang.play;
 
 enum HorizontalDirection {
     Left;
