@@ -78,5 +78,12 @@
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
 	<!-- _________________________________ Custom _______________________________ -->
+	<icon path="assets/images/icon.svg"/>
+	<icon path="assets/images/icon-ldpi.png" size="36" if="android"/>
+	<icon path="assets/images/icon-mdpi.png" size="48" if="android"/>
+	<icon path="assets/images/icon-hdpi.png" size="72" if="android"/>
+	<icon path="assets/images/icon-xhdpi.png" size="96" if="android"/>
+	<icon path="assets/images/icon-xxhdpi.png" size="144" if="android"/>
+	<icon path="assets/images/icon-xxxhdpi.png" size="192" if="android"/>
 	<template path="AndroidManifest.xml" rename="AndroidManifest.xml" if="android"/>
 </project>
