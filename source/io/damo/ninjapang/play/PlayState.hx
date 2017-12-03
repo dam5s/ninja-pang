@@ -136,7 +136,7 @@ class PlayState extends FlxState {
     }
 
     private inline function randomX(): Int {
-        return 128 + Math.floor(Math.random() * FlxG.width - 256);
+        return 256 + Math.floor(Math.random() * FlxG.width - 256);
     }
 
     private inline function randomDirection(): HorizontalDirection {

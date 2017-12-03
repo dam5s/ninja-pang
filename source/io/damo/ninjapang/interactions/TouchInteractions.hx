@@ -7,7 +7,7 @@ import io.damo.ninjapang.menu.MenuItem;
 #if FLX_TOUCH
 class TouchInteractions implements Interactions {
 
-    private static inline var DIRECTION_BUTTON_SIZE = 100;
+    private static inline var DIRECTION_BUTTON_SIZE = 50;
 
     public function new() {}
 
@@ -40,7 +40,7 @@ class TouchInteractions implements Interactions {
 
         if (touches.length <= 2) {
             for (touch in touches) {
-                if (touch.x > DIRECTION_BUTTON_SIZE && touch.x <= DIRECTION_BUTTON_SIZE * 2) {
+                if (touch.x > DIRECTION_BUTTON_SIZE && touch.x <= DIRECTION_BUTTON_SIZE * 3) {
                     return true;
                 }
             }
