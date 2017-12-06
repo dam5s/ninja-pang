@@ -11,14 +11,11 @@ class HUD extends FlxSpriteGroup {
 
     private static inline var PADDING = 16;
 
-    private var scoreBoard: ScoreBoard;
     private var livesText: FlxText;
     private var scoreText: FlxText;
 
-    public function new(scoreBoard: ScoreBoard) {
+    public function new() {
         super();
-
-        this.scoreBoard = scoreBoard;
 
         livesText = new FlxText(PADDING * 2, PADDING, FlxG.width - PADDING * 4).defaultStyle();
         livesText.alignment = FlxTextAlign.RIGHT;
@@ -32,11 +29,12 @@ class HUD extends FlxSpriteGroup {
         add(scoreText);
     }
 
-    override public function update(elapsed: Float): Void {
-        livesText.text = '${scoreBoard.lives} LIVES';
-        scoreText.text = 'SCORE ${lpad(scoreBoard.score, 6)}';
+    public function displayLives(lives: Int) {
+        livesText.text = '${lives} LIVES';
+    }
 
-        super.update(elapsed);
+    public function displayScore(score: Int) {
+        scoreText.text = 'SCORE ${lpad(score, 6)}';
     }
 
 

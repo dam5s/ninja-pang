@@ -20,13 +20,4 @@ class Projectile extends FlxSprite {
         startingPoint = y;
         velocity.y = -300;
     }
-
-    override public function update(elapsed: Float): Void {
-        if (y < 0) {
-            kill();
-            return;
-        }
-
-        super.update(elapsed);
-    }
 }
