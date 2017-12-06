@@ -27,7 +27,7 @@ class MainMenuState extends FlxState {
         add(new FlxSprite(0, 0, AssetPaths.mini_ninja_bg__png));
 
         selectedIndex = 0;
-        menuTexts = ["START", "HIGHSCORE", "EXIT"];
+        menuTexts = ["START", "HIGHSCORE"];
         menuItems = [];
 
         for (i in 0...menuTexts.length) {
@@ -80,7 +80,6 @@ class MainMenuState extends FlxState {
             case "START": FlxG.switchState(new PlayState());
             case "HIGHSCORE": openSubState(new HighScoreSubState());
             case "RESET": saveService.resetHighScore();
-            case "EXIT": openfl.Lib.close();
         }
     }
 }
