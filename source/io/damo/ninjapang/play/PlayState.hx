@@ -4,8 +4,8 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import io.damo.ninjapang.controls.Controls;
 import io.damo.ninjapang.gameover.GameOverState;
-import io.damo.ninjapang.interactions.Interactions;
 import io.damo.ninjapang.play.BallSize;
 import io.damo.ninjapang.play.HorizontalDirection;
 import io.damo.ninjapang.play.Player;
@@ -19,7 +19,7 @@ class PlayState extends FlxState {
     private static inline var BALL_MIN_X = 16;
 
     private var saveService: SaveService;
-    private var interactions: Interactions;
+    private var controls: Controls;
     private var scoreBoard: ScoreBoard;
 
     private var floor: FlxSprite;
@@ -33,7 +33,7 @@ class PlayState extends FlxState {
         super.create();
 
         saveService = Env.instance.saveService;
-        interactions = Env.instance.interactions;
+        controls = Env.instance.controls;
         scoreBoard = Env.instance.resetScoreBoard();
 
         projectiles = new FlxTypedGroup<Projectile>();
@@ -159,16 +159,16 @@ class PlayState extends FlxState {
 
 
     private inline function movePlayer() {
-        if (interactions.stopMoving()) player.stopMoving();
-        if (interactions.left()) player.moveLeft();
-        if (interactions.right()) player.moveRight();
+        if (controls.stopMoving()) player.stopMoving();
+        if (controls.left()) player.moveLeft();
+        if (controls.right()) player.moveRight();
 
         if (player.x < 0) player.x = 0;
         if (player.x + player.width > FlxG.width) player.x = FlxG.width - player.width;
     }
 
     private inline function shoot() {
-        if (interactions.shoot() && canShoot()) {
+        if (controls.shoot() && canShoot()) {
             FlxG.sound.play(AssetPaths.shoot__ogg, .6);
 
             var projectile = player.shoot();

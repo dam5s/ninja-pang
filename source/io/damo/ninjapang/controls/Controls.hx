@@ -1,10 +1,10 @@
-package io.damo.ninjapang.interactions;
+package io.damo.ninjapang.controls;
 
 import haxe.ds.Option;
 import io.damo.ninjapang.menu.MenuItem;
 
 
-interface Interactions {
+interface Controls {
 
     function skip(): Bool;
 

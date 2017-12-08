@@ -3,7 +3,7 @@ package io.damo.ninjapang.gameover;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
-import io.damo.ninjapang.interactions.Interactions;
+import io.damo.ninjapang.controls.Controls;
 import io.damo.ninjapang.menu.MainMenuState;
 import io.damo.ninjapang.ui.AssetsSupport;
 
@@ -12,14 +12,14 @@ using io.damo.ninjapang.ui.FlxTextExtender;
 
 class GameOverState extends FlxState {
 
-    private var interactions: Interactions;
+    private var controls: Controls;
     private var saveService: SaveService;
     private var scoreBoard: ScoreBoard;
 
     override public function create() {
         super.create();
 
-        interactions = Env.instance.interactions;
+        controls = Env.instance.controls;
         saveService = Env.instance.saveService;
         scoreBoard = Env.instance.scoreBoard;
 
@@ -50,7 +50,7 @@ class GameOverState extends FlxState {
     override public function update(elapsed: Float): Void {
         timeSpent += elapsed;
 
-        if (interactions.skip() && timeSpent > 1) {
+        if (controls.skip() && timeSpent > 1) {
             FlxG.switchState(new MainMenuState());
         }
 

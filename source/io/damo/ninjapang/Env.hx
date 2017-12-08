@@ -1,8 +1,8 @@
 package io.damo.ninjapang;
 
 
-import io.damo.ninjapang.interactions.Interactions;
-import io.damo.ninjapang.interactions.InteractionsFactory;
+import io.damo.ninjapang.controls.Controls;
+import io.damo.ninjapang.controls.ControlsFactory;
 
 class Env {
 
@@ -10,19 +10,19 @@ class Env {
 
     public var saveService(default, null) = new SaveService();
     public var scoreBoard(default, null) = new ScoreBoard();
-    public var interactions(default, null) = InteractionsFactory.create();
+    public var controls(default, null) = ControlsFactory.create();
 
 
-    public function new(?saveService: SaveService, ?interactions: Interactions) {
+    public function new(?saveService: SaveService, ?controls: Controls) {
         this.saveService = saveService;
-        this.interactions = interactions;
+        this.controls = controls;
         this.scoreBoard = new ScoreBoard();
 
         if (saveService == null) {
             this.saveService = new SaveService();
         }
-        if (interactions == null) {
-            this.interactions = InteractionsFactory.create();
+        if (controls == null) {
+            this.controls = ControlsFactory.create();
         }
     }
 

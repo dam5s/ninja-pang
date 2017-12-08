@@ -1,4 +1,4 @@
-package io.damo.ninjapang.interactions;
+package io.damo.ninjapang.controls;
 
 import flixel.FlxG;
 import haxe.ds.Option;
@@ -7,7 +7,7 @@ import io.damo.ninjapang.menu.MenuItem;
 
 #if FLX_KEYBOARD
 #if FLX_MOUSE
-class KeyboardAndMouseInteractions implements Interactions {
+class KeyboardAndMouseControls implements Controls {
 
     public function new() {}
 

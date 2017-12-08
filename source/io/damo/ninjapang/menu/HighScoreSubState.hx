@@ -3,14 +3,14 @@ package io.damo.ninjapang.menu;
 import flixel.FlxSubState;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.util.FlxColor;
-import io.damo.ninjapang.interactions.Interactions;
+import io.damo.ninjapang.controls.Controls;
 import io.damo.ninjapang.ui.AssetsSupport;
 import io.damo.ninjapang.ui.FlxTextExtender;
 
 
 class HighScoreSubState extends FlxSubState {
 
-    private var interactions: Interactions;
+    private var controls: Controls;
     private var saveService: SaveService;
 
     public function new() {
@@ -20,7 +20,7 @@ class HighScoreSubState extends FlxSubState {
     override public function create(): Void {
         super.create();
 
-        this.interactions = Env.instance.interactions;
+        this.controls = Env.instance.controls;
         this.saveService = Env.instance.saveService;
 
 
@@ -34,7 +34,7 @@ class HighScoreSubState extends FlxSubState {
     }
 
     override public function update(elapsed: Float): Void {
-        if (interactions.skip())
+        if (controls.skip())
             close();
     }
 

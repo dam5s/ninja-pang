@@ -5,7 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.util.FlxTimer;
 import haxe.ds.Option;
-import io.damo.ninjapang.interactions.Interactions;
+import io.damo.ninjapang.controls.Controls;
 import io.damo.ninjapang.play.PlayState;
 
 
@@ -13,7 +13,7 @@ class MainMenuState extends FlxState {
 
 
     private var saveService: SaveService;
-    private var interactions: Interactions;
+    private var controls: Controls;
     private var menuTexts: Array<String>;
     private var menuItems: Array<MenuItem>;
     private var selectedIndex: Int;
@@ -22,7 +22,7 @@ class MainMenuState extends FlxState {
         super.create();
 
         saveService = Env.instance.saveService;
-        interactions = Env.instance.interactions;
+        controls = Env.instance.controls;
 
         add(new FlxSprite(0, 0, AssetPaths.mini_ninja_bg__png));
 
@@ -38,7 +38,7 @@ class MainMenuState extends FlxState {
     }
 
     override public function update(elapsed: Float): Void {
-        switch (interactions.selectedMenuItem(menuItems)) {
+        switch (controls.selectedMenuItem(menuItems)) {
             case Option.Some(selectedItem):
                 selectedIndex = menuTexts.indexOf(selectedItem.text);
                 selectMenuItem();
@@ -47,13 +47,13 @@ class MainMenuState extends FlxState {
             // do nothing;
         }
 
-        if (interactions.accept()) {
+        if (controls.accept()) {
             launchItem(menuTexts[selectedIndex]);
             return;
         }
 
-        if (interactions.down()) selectedIndex += 1;
-        if (interactions.up()) selectedIndex -= 1;
+        if (controls.down()) selectedIndex += 1;
+        if (controls.up()) selectedIndex -= 1;
 
         if (selectedIndex >= menuTexts.length) selectedIndex = menuTexts.length - 1;
         if (selectedIndex < 0) selectedIndex = 0;

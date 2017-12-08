@@ -1,11 +1,11 @@
-package io.damo.ninjapang.interactions;
+package io.damo.ninjapang.controls;
 
 import flixel.FlxG;
 import haxe.ds.Option;
 import io.damo.ninjapang.menu.MenuItem;
 
 #if FLX_TOUCH
-class TouchInteractions implements Interactions {
+class TouchControls implements Controls {
 
     private static inline var DIRECTION_BUTTON_SIZE = 50;
 
