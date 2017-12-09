@@ -26,6 +26,13 @@ class Env {
         }
     }
 
+    #if FLX_UNIT_TEST
+
+    public static function loadEnv(saveService: SaveService, controls: Controls) {
+        instance = new Env(saveService, controls);
+    }
+    #end
+
     public function resetScoreBoard(): ScoreBoard {
         scoreBoard = new ScoreBoard();
         return scoreBoard;

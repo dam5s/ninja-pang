@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+    <app title="Ninja Pang Tests" file="ninja-pang-tests" main="tests.damo.ninjapang.Main"/>
+
+    <set name="SWF_VERSION" value="11.8"/>
+    <set name="BUILD_DIR" value="export"/>
+
+    <classpath name="../source"/>
+    <classpath name="source"/>
+    <assets path="../assets"/>
+
+
+    <haxelib name="flixel"/>
+    <haxedef name="FLX_UNIT_TEST"/>
+</project>
