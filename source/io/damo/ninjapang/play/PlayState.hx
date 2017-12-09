@@ -49,9 +49,9 @@ class PlayState extends FlxState {
         var playerX = (FlxG.width - Player.SIZE) / 2;
         var playerY = FlxG.height - Player.SIZE - TILE_SIZE;
         player = new Player(playerX, playerY);
-        playerBuffs = new PlayerBuffs();
+        playerBuffs = new PlayerBuffs(player);
 
-        hud = new HUD();
+        hud = new HUD(scoreBoard);
 
         add(AssetsSupport.buildBgSprite());
         add(projectiles);
@@ -63,18 +63,14 @@ class PlayState extends FlxState {
     }
 
     override public function update(elapsed: Float) {
+        FlxG.collide(balls, floor);
         FlxG.collide(player, floor);
-        FlxG.collide(balls, floor, bounceBall);
         FlxG.collide(projectiles, balls, collideProjectileAndBall);
         FlxG.overlap(player, balls, hitPlayer);
 
         spawnBall(elapsed);
         movePlayer();
         shoot();
-        killProjectiles();
-        changeBallsDirection();
-        updateHUD();
-        updateBuffs();
 
         super.update(elapsed);
     }
@@ -95,43 +91,6 @@ class PlayState extends FlxState {
         }
     }
 
-    private function updateBuffs() {
-        playerBuffs.x = player.x - 10;
-        playerBuffs.y = player.y - 3;
-
-        if (player.shielded && !playerBuffs.displayingShield) playerBuffs.displayShield();
-
-        if (!player.shielded && playerBuffs.displayingShield) playerBuffs.hideShield();
-    }
-
-    private function updateHUD() {
-        hud.displayLives(scoreBoard.lives);
-        hud.displayScore(scoreBoard.score);
-    }
-
-    private function killProjectiles() {
-        projectiles.forEach(function(projectile: Projectile) {
-            if (projectile.y < 0) projectile.kill();
-        });
-    }
-
-    private function bounceBall(ball: Ball, floor: FlxSprite) {
-        ball.velocity.y = -Ball.GRAVITY;
-        ball.animation.play("bounce");
-    }
-
-    private function changeBallsDirection() {
-        balls.forEach(function(ball: Ball) {
-            if (ball.x <= 0) {
-                ball.velocity.x = ball.horizontalVelocity;
-            }
-
-            if (ball.x + ball.width >= FlxG.width) {
-                ball.velocity.x = -ball.horizontalVelocity;
-            }
-        });
-    }
-
     private function collideProjectileAndBall(projectile: Projectile, ball: Ball) {
         FlxG.sound.play(AssetPaths.pop__ogg);
 
@@ -147,7 +106,6 @@ class PlayState extends FlxState {
     private function hitPlayer(player: Player, ball: Ball) {
         if (player.hit()) {
             scoreBoard.lives -= 1;
-
             FlxG.sound.play(AssetPaths.hit__ogg);
             FlxG.camera.shake(0.02, 0.35);
 
@@ -162,9 +120,6 @@ class PlayState extends FlxState {
         if (controls.stopMoving()) player.stopMoving();
         if (controls.left()) player.moveLeft();
         if (controls.right()) player.moveRight();
-
-        if (player.x < 0) player.x = 0;
-        if (player.x + player.width > FlxG.width) player.x = FlxG.width - player.width;
     }
 
     private inline function shoot() {

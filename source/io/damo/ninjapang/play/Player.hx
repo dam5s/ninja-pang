@@ -1,5 +1,6 @@
 package io.damo.ninjapang.play;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxTimer;
 
@@ -27,6 +28,13 @@ class Player extends FlxSprite {
 
         velocity.y = GRAVITY;
         velocity.x = 0;
+    }
+
+    override public function update(elapsed: Float) {
+        if (x < 0) x = 0;
+        if (x + width > FlxG.width) x = FlxG.width - width;
+
+        super.update(elapsed);
     }
 
     public function moveLeft() {

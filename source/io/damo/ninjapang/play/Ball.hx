@@ -1,19 +1,20 @@
 package io.damo.ninjapang.play;
 
+import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 class Ball extends FlxSprite {
 
-    public static inline var GRAVITY = 200;
-    public static inline var FALLING_SPEED = 250;
-
-    public var horizontalVelocity(default, null): Float;
+    private static inline var GRAVITY = 200;
+    private static inline var FALLING_SPEED = 250;
 
     private var size: BallSize;
     private var hitBoxSize: Float;
     private var graphicSize: Int;
     private var asset: FlxGraphicAsset;
+    private var horizontalVelocity: Float;
     private var weight: Float;
 
     public var score(default, null): Int;
@@ -41,6 +42,23 @@ class Ball extends FlxSprite {
         if (direction == HorizontalDirection.Left) {
             velocity.x = -horizontalVelocity;
         }
+    }
+
+    override public function update(elapsed: Float): Void {
+        if (justTouched(FlxObject.FLOOR)) {
+            velocity.y = -GRAVITY;
+            animation.play("bounce");
+        }
+
+        if (x <= 0) {
+            velocity.x = horizontalVelocity;
+        }
+
+        if (x + width >= FlxG.width) {
+            velocity.x = -horizontalVelocity;
+        }
+
+        super.update(elapsed);
     }
 
     public function split(): Array<Ball> {
