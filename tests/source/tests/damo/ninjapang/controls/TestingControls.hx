@@ -7,23 +7,48 @@ import io.damo.ninjapang.menu.MenuItem;
 
 class TestingControls implements Controls {
 
-    public function new() {}
+    public var mockedSkip: Bool;
+    public var mockedAccept: Bool;
+    public var mockedUp: Bool;
+    public var mockedDown: Bool;
+    public var mockedLeft: Bool;
+    public var mockedRight: Bool;
+    public var mockedStopMoving: Bool;
+    public var mockedShoot: Bool;
+    public var mockedSelectedMenuItem: Option<MenuItem>;
 
-    public function skip(): Bool { return false; }
+    public function new() {
+        reset();
+    }
 
-    public function accept(): Bool { return false; }
+    public function skip(): Bool { return mockedSkip; }
 
-    public function up(): Bool { return false; }
+    public function accept(): Bool { return mockedAccept; }
 
-    public function down(): Bool { return false; }
+    public function up(): Bool { return mockedUp; }
 
-    public function left(): Bool { return false; }
+    public function down(): Bool { return mockedDown; }
 
-    public function right(): Bool { return false; }
+    public function left(): Bool { return mockedLeft; }
 
-    public function stopMoving(): Bool { return false; }
+    public function right(): Bool { return mockedRight; }
 
-    public function shoot(): Bool { return false; }
+    public function stopMoving(): Bool { return mockedStopMoving; }
 
-    public function selectedMenuItem(menuItems: Array<MenuItem>): Option<MenuItem> { return Option.None; }
+    public function shoot(): Bool { return mockedShoot; }
+
+    public function selectedMenuItem(menuItems: Array<MenuItem>): Option<MenuItem> { return mockedSelectedMenuItem; }
+
+
+    public function reset() {
+        mockedSkip = false;
+        mockedAccept = false;
+        mockedUp = false;
+        mockedDown = false;
+        mockedLeft = false;
+        mockedRight = false;
+        mockedStopMoving = false;
+        mockedShoot = false;
+        mockedSelectedMenuItem = Option.None;
+    }
 }

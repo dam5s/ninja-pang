@@ -7,8 +7,8 @@ import flixel.util.FlxTimer;
 class Player extends FlxSprite {
 
     public static inline var SIZE = 32;
+    public static inline var HORIZONTAL_VELOCITY = 150.0;
     private static inline var GRAVITY = 200;
-    private static inline var HORIZONTAL_VELOCITY = 150;
 
     public var shielded(default, null) = false;
 
